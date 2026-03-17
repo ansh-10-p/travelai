@@ -2,200 +2,118 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Sparkles, ChevronDown } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import FloatingDestinations from "@/components/FloatingDestinations";
-import DestinationCard from "@/components/DestinationCard";
+import { ArrowRight, Sparkles, Star, Calendar, TrendingUp, Brain, Map, Wallet, Globe } from "lucide-react";
+import { HeroSection } from "@/components/blocks/hero-section-3";
 
 const trending = [
   {
     city: "Tokyo",
     country: "Japan",
-    emoji: "🗼",
-    gradient: "from-violet-300/30 to-indigo-300/30",
+    tag: "Culture",
+    tagColor: "bg-violet-100 text-violet-700",
     budget: "$2,800 / week",
     bestSeason: "Mar – May",
     rating: 4.9,
+    image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=500&h=320&fit=crop",
+    accent: "from-violet-500/20 to-indigo-500/20",
   },
   {
     city: "Bali",
     country: "Indonesia",
-    emoji: "🌴",
-    gradient: "from-emerald-300/30 to-teal-300/30",
+    tag: "Adventure",
+    tagColor: "bg-emerald-100 text-emerald-700",
     budget: "$1,200 / week",
     bestSeason: "Apr – Oct",
     rating: 4.8,
+    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=500&h=320&fit=crop",
+    accent: "from-emerald-500/20 to-teal-500/20",
   },
   {
     city: "Paris",
     country: "France",
-    emoji: "🗼",
-    gradient: "from-rose-300/30 to-pink-300/30",
+    tag: "Romantic",
+    tagColor: "bg-rose-100 text-rose-700",
     budget: "$3,400 / week",
     bestSeason: "Jun – Aug",
     rating: 4.9,
+    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=500&h=320&fit=crop",
+    accent: "from-rose-500/20 to-pink-500/20",
   },
   {
     city: "Santorini",
     country: "Greece",
-    emoji: "🏛️",
-    gradient: "from-sky-300/30 to-blue-300/30",
+    tag: "Scenic",
+    tagColor: "bg-sky-100 text-sky-700",
     budget: "$2,600 / week",
     bestSeason: "May – Sep",
     rating: 4.7,
+    image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=500&h=320&fit=crop",
+    accent: "from-sky-500/20 to-blue-500/20",
   },
   {
     city: "Kyoto",
     country: "Japan",
-    emoji: "⛩️",
-    gradient: "from-orange-300/30 to-amber-300/30",
+    tag: "Heritage",
+    tagColor: "bg-orange-100 text-orange-700",
     budget: "$2,200 / week",
     bestSeason: "Mar – Apr",
     rating: 4.8,
+    image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=500&h=320&fit=crop",
+    accent: "from-orange-500/20 to-amber-500/20",
   },
   {
     city: "Iceland",
     country: "Europe",
-    emoji: "🌌",
-    gradient: "from-cyan-300/30 to-teal-300/30",
+    tag: "Nature",
+    tagColor: "bg-cyan-100 text-cyan-700",
     budget: "$3,800 / week",
     bestSeason: "Jun – Aug",
     rating: 4.6,
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=320&fit=crop",
+    accent: "from-cyan-500/20 to-teal-500/20",
   },
 ];
 
 const features = [
   {
-    icon: "🧠",
+    icon: Brain,
     title: "AI-Powered Planning",
     desc: "Our AI understands your travel style, budget, and preferences to create truly personalized itineraries.",
+    color: "text-violet-600",
+    bg: "bg-violet-50",
+    accent: "from-violet-400 to-indigo-400",
   },
   {
-    icon: "🗺️",
+    icon: Map,
     title: "Day-by-Day Itinerary",
     desc: "Get a complete schedule with activities, restaurants, and accommodations—all curated for you.",
+    color: "text-amber-600",
+    bg: "bg-amber-50",
+    accent: "from-amber-400 to-orange-400",
   },
   {
-    icon: "💡",
+    icon: Wallet,
     title: "Smart Budget Tracking",
     desc: "Stay within your budget with real-time cost estimates and smart recommendations.",
+    color: "text-emerald-600",
+    bg: "bg-emerald-50",
+    accent: "from-emerald-400 to-teal-400",
   },
   {
-    icon: "✈️",
+    icon: Globe,
     title: "Multi-Destination Trips",
     desc: "Plan complex multi-stop journeys effortlessly with optimized routes and connections.",
+    color: "text-sky-600",
+    bg: "bg-sky-50",
+    accent: "from-sky-400 to-blue-400",
   },
 ];
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-
-      {/* ── HERO ── */}
-      <section className="min-h-screen flex items-center pt-20 pb-16 px-6">
-        <div className="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
-          {/* Left — text */}
-          <div>
-            {/* Pill badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 rounded-full px-4 py-1.5 mb-8"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-accent" />
-              <span className="text-xs font-medium text-accent">AI Travel Planning, Reimagined</span>
-            </motion.div>
-
-            {/* Main headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold text-text leading-[1.08] mb-6"
-            >
-              Plan Your{" "}
-              <span className="italic text-accent">Dream</span>
-              <br />
-              Journey With AI
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-text-muted text-lg leading-relaxed mb-10 max-w-md"
-            >
-              Describe your destination, travel style, and budget. Our AI creates
-              a personalized itinerary with hotels, activities, and daily plans.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="flex flex-wrap gap-3"
-            >
-              <Link href="/create-trip" className="btn-primary flex items-center gap-2 px-7 py-3 text-base">
-                Start Planning
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link href="#explore" className="btn-secondary flex items-center gap-2 px-7 py-3 text-base">
-                Explore Destinations
-              </Link>
-            </motion.div>
-
-            {/* Social proof */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              className="mt-12 flex items-center gap-4"
-            >
-              <div className="flex -space-x-2">
-                {["🧑‍💻", "👩‍🦰", "👨‍🦱", "👩‍🦳"].map((emoji, i) => (
-                  <div
-                    key={i}
-                    className="w-9 h-9 rounded-full bg-surface border-2 border-background flex items-center justify-center text-base"
-                  >
-                    {emoji}
-                  </div>
-                ))}
-              </div>
-              <div>
-                <p className="text-sm font-medium text-text">12,000+ trips planned</p>
-                <div className="flex items-center gap-1">
-                  {"★★★★★".split("").map((s, i) => (
-                    <span key={i} className="text-accent text-xs">{s}</span>
-                  ))}
-                  <span className="text-xs text-text-muted ml-1">4.9 / 5</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Right — floating cards */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.7 }}
-          >
-            <FloatingDestinations />
-          </motion.div>
-        </div>
-
-        {/* Scroll hint */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-text-muted">
-          <span className="text-xs font-medium">Explore</span>
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 1.4, repeat: Infinity }}
-          >
-            <ChevronDown className="w-4 h-4" />
-          </motion.div>
-        </div>
-      </section>
+    <div className="min-h-screen bg-[#FAFAF8]">
+      {/* ── NEW HERO ── */}
+      <HeroSection />
 
       {/* ── TRENDING DESTINATIONS ── */}
       <section id="explore" className="py-24 px-6">
@@ -205,13 +123,16 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-12"
+            className="mb-14"
           >
-            <p className="text-sm font-medium text-accent mb-3 tracking-wide uppercase">
-              Discover the world
-            </p>
-            <h2 className="section-title mb-3">Trending Destinations</h2>
-            <p className="text-text-muted max-w-lg">
+            <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200/60 rounded-full px-3 py-1 mb-4">
+              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              <span className="text-xs font-semibold text-amber-700 uppercase tracking-wide">Discover the world</span>
+            </div>
+            <h2 className="font-bold text-3xl md:text-4xl text-gray-900 mb-3 tracking-tight">
+              Trending Destinations
+            </h2>
+            <p className="text-gray-500 max-w-lg leading-relaxed">
               The most popular destinations this season, curated by our community of globetrotters.
             </p>
           </motion.div>
@@ -225,7 +146,7 @@ export default function HomePage() {
       </section>
 
       {/* ── FEATURES ── */}
-      <section id="features" className="py-24 px-6 bg-surface">
+      <section id="features" className="py-24 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -233,11 +154,14 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <p className="text-sm font-medium text-accent mb-3 tracking-wide uppercase">
-              Why TravelAI
-            </p>
-            <h2 className="section-title mb-3">Travel smarter, not harder</h2>
-            <p className="text-text-muted max-w-lg mx-auto">
+            <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200/60 rounded-full px-3 py-1 mb-4">
+              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+              <span className="text-xs font-semibold text-amber-700 uppercase tracking-wide">Why TravelAI</span>
+            </div>
+            <h2 className="font-bold text-3xl md:text-4xl text-gray-900 mb-3 tracking-tight">
+              Travel smarter, not harder
+            </h2>
+            <p className="text-gray-500 max-w-lg mx-auto leading-relaxed">
               Everything you need to plan the perfect trip — powered by cutting-edge AI.
             </p>
           </motion.div>
@@ -246,17 +170,20 @@ export default function HomePage() {
             {features.map((f, i) => (
               <motion.div
                 key={f.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="card p-6 text-center group"
+                transition={{ delay: i * 0.1, duration: 0.55 }}
+                whileHover={{ y: -4 }}
+                className="group relative bg-white rounded-2xl border border-gray-100 p-6 shadow-sm hover:shadow-md transition-all duration-300 cursor-default overflow-hidden"
               >
-                <div className="text-4xl mb-4">{f.icon}</div>
-                <h3 className="font-heading font-semibold text-lg text-text mb-2">
-                  {f.title}
-                </h3>
-                <p className="text-sm text-text-muted leading-relaxed">{f.desc}</p>
+                {/* Subtle gradient top accent */}
+                <div className={`absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r ${f.accent ?? 'from-amber-400 to-orange-400'} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+                <div className={`w-11 h-11 ${f.bg} rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110`}>
+                  <f.icon className={`w-5 h-5 ${f.color}`} strokeWidth={1.8} />
+                </div>
+                <h3 className="font-bold text-base text-gray-900 mb-2">{f.title}</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">{f.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -270,41 +197,156 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-accent/10 border border-accent/20 rounded-3xl p-12"
+            className="relative overflow-hidden bg-gradient-to-br from-amber-600 to-orange-600 rounded-3xl p-12 shadow-2xl shadow-amber-500/20"
           >
-            <p className="text-5xl mb-6">✈️</p>
-            <h2 className="font-heading text-4xl font-bold text-text mb-4">
-              Ready to start your adventure?
-            </h2>
-            <p className="text-text-muted text-lg mb-8">
-              Join thousands of travelers who plan smarter with TravelAI.
-            </p>
-            <Link href="/create-trip" className="btn-primary text-base px-8 py-3 inline-flex items-center gap-2">
-              Plan My Trip
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            {/* bg decoration */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/3" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full translate-y-1/2 -translate-x-1/3" />
+            <div className="relative z-10">
+              <div className="text-5xl mb-5">✈️</div>
+              <h2 className="font-bold text-3xl md:text-4xl text-white mb-4 tracking-tight">
+                Ready to start your adventure?
+              </h2>
+              <p className="text-amber-100 text-lg mb-8 max-w-lg mx-auto leading-relaxed">
+                Join thousands of travelers who plan smarter with TravelAI.
+              </p>
+              <Link
+                href="/create-trip"
+                className="inline-flex items-center gap-2 bg-white text-amber-700 font-semibold px-8 py-3.5 rounded-2xl text-sm hover:bg-amber-50 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+              >
+                Plan My Trip
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="border-t border-border py-10 px-6">
+      <footer className="border-t border-gray-100 bg-white py-10 px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="font-heading font-semibold text-text">
-              Travel<span className="text-accent">AI</span>
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 bg-amber-600 rounded-lg flex items-center justify-center">
+              <span className="text-white text-sm">✈</span>
+            </div>
+            <span className="font-bold text-gray-900">
+              Travel<span className="text-amber-600">AI</span>
             </span>
           </div>
-          <p className="text-sm text-text-muted">
-            © 2026 TravelAI. All rights reserved.
-          </p>
-          <div className="flex gap-6 text-sm text-text-muted">
-            <Link href="#" className="hover:text-text transition-colors">Privacy</Link>
-            <Link href="#" className="hover:text-text transition-colors">Terms</Link>
-            <Link href="#" className="hover:text-text transition-colors">Contact</Link>
+          <p className="text-sm text-gray-400">© 2026 TravelAI. All rights reserved.</p>
+          <div className="flex gap-6 text-sm text-gray-400">
+            <Link href="#" className="hover:text-gray-700 transition-colors">Privacy</Link>
+            <Link href="#" className="hover:text-gray-700 transition-colors">Terms</Link>
+            <Link href="#" className="hover:text-gray-700 transition-colors">Contact</Link>
           </div>
         </div>
       </footer>
     </div>
+  );
+}
+
+/* ───────────────── Refined Destination Card ───────────────── */
+interface DestinationCardProps {
+  city: string;
+  country: string;
+  tag: string;
+  tagColor: string;
+  budget: string;
+  bestSeason: string;
+  rating?: number;
+  index?: number;
+  image: string;
+  accent?: string;
+}
+
+function DestinationCard({
+  city,
+  country,
+  tag,
+  tagColor,
+  budget,
+  bestSeason,
+  rating = 4.8,
+  index = 0,
+  image,
+  accent,
+}: DestinationCardProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ delay: index * 0.08, duration: 0.55, ease: "easeOut" }}
+      whileHover={{ y: -6 }}
+      className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-gray-200/60 transition-all duration-500 cursor-pointer"
+    >
+      {/* Image */}
+      <div className="relative h-52 overflow-hidden">
+        <img
+          src={image}
+          alt={`${city}, ${country}`}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        />
+        {/* gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+
+        {/* Tag */}
+        <div className="absolute top-3 left-3">
+          <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${tagColor} shadow-sm backdrop-blur-sm`}>
+            {tag}
+          </span>
+        </div>
+
+        {/* Trending badge */}
+        <div className="absolute top-3 right-3">
+          <div className="flex items-center gap-1 bg-white/90 backdrop-blur-sm rounded-full px-2.5 py-1 shadow-sm">
+            <TrendingUp className="w-3 h-3 text-amber-600" />
+            <span className="text-[10px] font-bold text-amber-700">Trending</span>
+          </div>
+        </div>
+
+        {/* Country name at bottom of image */}
+        <div className="absolute bottom-3 left-4">
+          <p className="text-white/80 text-sm font-medium">{country}</p>
+        </div>
+      </div>
+
+      {/* Card content */}
+      <div className="p-5">
+        <div className="flex items-start justify-between mb-3">
+          <h3 className="font-bold text-xl text-gray-900 tracking-tight">{city}</h3>
+          <div className="flex items-center gap-1 bg-amber-50 rounded-full px-2.5 py-1">
+            <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+            <span className="text-sm font-bold text-amber-700">{rating}</span>
+          </div>
+        </div>
+
+        <div className="space-y-2 mb-4">
+          <div className="flex items-center gap-2">
+            <div className="w-5 h-5 rounded-full bg-amber-50 flex items-center justify-center flex-shrink-0">
+              <span className="text-[10px]">💰</span>
+            </div>
+            <span className="text-sm text-gray-500">
+              Avg. budget: <span className="text-gray-800 font-semibold">{budget}</span>
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-5 h-5 rounded-full bg-amber-50 flex items-center justify-center flex-shrink-0">
+              <Calendar className="w-3 h-3 text-amber-600" />
+            </div>
+            <span className="text-sm text-gray-500">
+              Best time: <span className="text-gray-800 font-semibold">{bestSeason}</span>
+            </span>
+          </div>
+        </div>
+
+        <div className="pt-4 border-t border-gray-100">
+          <button className="w-full text-sm font-semibold text-amber-600 hover:text-amber-700 transition-colors duration-200 flex items-center justify-center gap-1.5 group/btn">
+            <span>Explore destination</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform duration-200" />
+          </button>
+        </div>
+      </div>
+    </motion.div>
   );
 }

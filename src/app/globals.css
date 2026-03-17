@@ -1,12 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --color-background: #F8F7F3;
+  --color-surface: #EFEDE6;
+  --color-accent: #A67C52;
+  --color-accent-light: #C4A07A;
+  --color-accent-dark: #8B6340;
+  --color-text: #1A1A1A;
+  --color-text-muted: #6B6B6B;
+  --color-text-light: #9B9B9B;
+  --color-border: #E5E3DC;
+  --color-card: #FAFAF8;
+
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --shadow-soft: 0 1px 3px 0 rgba(0,0,0,0.04), 0 1px 2px -1px rgba(0,0,0,0.04);
+  --shadow-card: 0 4px 16px 0 rgba(26,26,26,0.06), 0 1px 4px 0 rgba(26,26,26,0.04);
+  --shadow-card-hover: 0 8px 32px 0 rgba(26,26,26,0.10), 0 2px 8px 0 rgba(26,26,26,0.06);
+  --shadow-float: 0 16px 48px 0 rgba(26,26,26,0.12), 0 4px 16px 0 rgba(26,26,26,0.08);
+
+  --animate-float-slow: float 6s ease-in-out infinite;
+  --animate-float-medium: float 4s ease-in-out infinite;
+  --animate-fade-up: fadeUp 0.6s ease-out forwards;
+  --animate-shimmer: shimmer 2s infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(24px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+}
 
 :root {
   --font-playfair: 'Playfair Display', Georgia, serif;
   --font-inter: 'Inter', system-ui, sans-serif;
+
+  /* shadcn/ui compatible CSS variables */
+  --background: 250 250 248;
+  --foreground: 26 26 26;
+  --card: 255 255 255;
+  --card-foreground: 26 26 26;
+  --popover: 255 255 255;
+  --popover-foreground: 26 26 26;
+  --primary: 180 83 9; /* amber-800 */
+  --primary-foreground: 255 255 255;
+  --secondary: 239 237 230;
+  --secondary-foreground: 26 26 26;
+  --muted: 241 240 235;
+  --muted-foreground: 107 107 107;
+  --accent: 239 237 230;
+  --accent-foreground: 26 26 26;
+  --destructive: 220 38 38;
+  --destructive-foreground: 255 255 255;
+  --border: 229 227 220;
+  --input: 229 227 220;
+  --ring: 166 124 82;
+  --radius: 0.75rem;
 }
 
 * {
@@ -20,26 +77,26 @@ html {
 }
 
 body {
-  background-color: #F8F7F3;
-  color: #1A1A1A;
-  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-@layer base {
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', Georgia, serif;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-  }
-  p {
-    font-family: 'Inter', system-ui, sans-serif;
-    line-height: 1.7;
-  }
-  input, textarea, select, button {
-    font-family: 'Inter', system-ui, sans-serif;
-  }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+p {
+  font-family: var(--font-body);
+  line-height: 1.7;
+}
+
+input, textarea, select, button {
+  font-family: var(--font-body);
 }
 
 @layer components {
@@ -58,51 +115,103 @@ body {
   }
 
   .btn-primary {
-    @apply bg-accent text-white px-6 py-2.5 rounded-xl font-medium text-sm 
-           hover:bg-accent-dark transition-all duration-200 shadow-soft 
-           hover:shadow-card active:scale-[0.98];
+    background-color: var(--color-accent);
+    color: #FFFFFF;
+    padding: 0.625rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+    box-shadow: var(--shadow-soft);
+  }
+  .btn-primary:hover {
+    background-color: var(--color-accent-dark);
+    box-shadow: var(--shadow-card);
+  }
+  .btn-primary:active {
+    transform: scale(0.98);
   }
 
   .btn-secondary {
-    @apply bg-surface text-text border border-border px-6 py-2.5 rounded-xl 
-           font-medium text-sm hover:bg-border transition-all duration-200;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    padding: 0.625rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover {
+    background-color: var(--color-border);
   }
 
   .btn-ghost {
-    @apply text-text-muted hover:text-text px-4 py-2 rounded-xl text-sm 
-           font-medium transition-all duration-200 hover:bg-surface;
+    color: var(--color-text-muted);
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover {
+    color: var(--color-text);
+    background-color: var(--color-surface);
   }
 
   .card {
-    @apply bg-white rounded-2xl shadow-card border border-border 
-           transition-all duration-300 hover:shadow-card-hover;
+    background-color: #FFFFFF;
+    border-radius: 1rem;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--color-border);
+    transition: all 0.3s;
+  }
+  .card:hover {
+    box-shadow: var(--shadow-card-hover);
   }
 
   .input-field {
-    @apply w-full px-4 py-3 bg-surface border border-border rounded-xl 
-           text-sm text-text placeholder:text-text-muted
-           focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent 
-           transition-all duration-200;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--color-text);
+    transition: all 0.2s;
+  }
+  .input-field::placeholder {
+    color: var(--color-text-muted);
+  }
+  .input-field:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(166, 124, 82, 0.2);
+    border-color: var(--color-accent);
   }
 
   .section-title {
-    @apply font-heading text-3xl md:text-4xl font-semibold text-text;
+    font-family: var(--font-heading);
+    font-size: 1.875rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 2.25rem;
+    }
   }
 
   .tag {
-    @apply text-xs font-medium px-2.5 py-1 rounded-full;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
-  }
-  .font-heading {
-    font-family: 'Playfair Display', Georgia, serif;
-  }
-  .font-body {
-    font-family: 'Inter', system-ui, sans-serif;
   }
 }
 
@@ -111,18 +220,18 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F8F7F3;
+  background: var(--color-background);
 }
 ::-webkit-scrollbar-thumb {
-  background: #E5E3DC;
+  background: var(--color-border);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #A67C52;
+  background: var(--color-accent);
 }
 
 /* Selection */
 ::selection {
   background: rgba(166, 124, 82, 0.2);
-  color: #1A1A1A;
+  color: var(--color-text);
 }
