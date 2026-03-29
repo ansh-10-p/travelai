@@ -3,24 +3,24 @@
 import React, { createContext, useContext, useState } from "react";
 
 interface DashboardContextType {
-  isSidebarOpen: boolean;
-  toggleSidebar: () => void;
   currentPage: string;
   setCurrentPage: (page: string) => void;
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
 }
 
 const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
 
 export const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [currentPage, setCurrentPage] = useState("home");
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
   };
 
   return (
-    <DashboardContext.Provider value={{ isSidebarOpen, toggleSidebar, currentPage, setCurrentPage }}>
+    <DashboardContext.Provider value={{ currentPage, setCurrentPage, isDarkMode, toggleDarkMode }}>
       {children}
     </DashboardContext.Provider>
   );

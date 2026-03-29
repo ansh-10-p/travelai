@@ -1,8 +1,7 @@
 // Export all dashboard components for easy imports
 
 export { DashboardProvider, useDashboard } from "./DashboardContext";
-export { DashboardSidebar } from "./DashboardSidebar";
-export { DashboardTopBar } from "./DashboardTopBar";
+export { DashboardNavbar } from "./DashboardNavbar";
 export { DashboardLayout } from "./DashboardLayout";
 export { StatCard, ActivityCard, TripCard } from "./DashboardCards";
 
