@@ -13,14 +13,14 @@ html {
 }
 
 body {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  background: linear-gradient(135deg, #FFFBF5 0%, #F5F1E8 50%, #FFFBF5 100%);
   min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #e2e8f0;
+  color: #2d2416;
 }
 
 /* Custom Animations */
@@ -45,15 +45,82 @@ body {
   }
 }
 
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 125, 92, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 125, 92, 0.6);
+  }
+}
+
+@keyframes rotate-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+}
+
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
 
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 20s linear infinite;
+}
+
+.animate-wave {
+  animation: wave 2s ease-in-out infinite;
+}
+
 .gradient-text {
-  background: linear-gradient(135deg, #06b6d4 0%, #f59e0b 50%, #06b6d4 100%);
+  background: linear-gradient(135deg, #FF7D5C 0%, #FF8C42 50%, #D2691E 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: gradient-shift 3s ease infinite;
 }
+
+.gradient-text-warm {
+  background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #FF7D5C 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-effect {
+  background: rgba(255, 251, 245, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(139, 69, 19, 0.1);
+}
+
+.glow-border {
+  box-shadow: 0 0 30px rgba(255, 125, 92, 0.2);
+}
+
