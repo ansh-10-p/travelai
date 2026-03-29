@@ -6,7 +6,7 @@ export function Beam() {
   return (
     <div className="relative h-8 w-full overflow-hidden">
       <motion.div
-        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent"
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-warm-orange to-transparent"
         animate={{
           opacity: [0.5, 1, 0.5],
         }}
@@ -17,7 +17,7 @@ export function Beam() {
         }}
       />
       <motion.div
-        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-500 to-transparent blur-sm"
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-600 to-transparent blur-sm"
         animate={{
           opacity: [0, 0.3, 0],
         }}

@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Sparkles, MapPin, Zap, Globe, TrendingUp, MoveRight } from 'lucide-react'
+import { Sparkles, MapPin, Zap, Globe, TrendingUp, MoveRight, Compass } from 'lucide-react'
 import { HomeBadge } from '@/components/ui/HomeBadge'
 import { Beam } from '@/components/ui/Beam'
 import { PremiumCard } from '@/components/ui/PremiumCard'
@@ -32,13 +32,13 @@ export function HeroSection() {
 
   const featureCards = [
     {
-      title: 'Smart Travel Planning',
-      description: 'Create and manage personalized itineraries with AI assistance.',
+      title: 'Smart Itinerary Creation',
+      description: 'AI-powered planning that creates perfect itineraries in seconds.',
       icon: <MapPin className="w-full h-full" />,
     },
     {
-      title: 'Intelligent Recommendations',
-      description: 'Get destination suggestions tailored to your preferences and budget.',
+      title: 'Destination Intelligence',
+      description: 'Discover hidden gems with our advanced recommendation engine.',
       icon: <Sparkles className="w-full h-full" />,
     },
   ]
@@ -59,57 +59,54 @@ export function HeroSection() {
   return (
     <section
       id="hero-section"
-      className="relative min-h-screen w-full overflow-x-hidden pt-20 pb-20"
+      className="relative min-h-screen w-full overflow-x-hidden pt-16 pb-20 bg-gradient-to-br from-off-white via-cream to-off-white"
     >
+      {/* Vector Graphics - Top Right */}
+      <motion.div
+        className="absolute -top-20 -right-20 w-96 h-96 opacity-20 pointer-events-none"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+      >
+        <div className="w-full h-full bg-gradient-to-br from-warm-orange to-soft-brown rounded-full blur-3xl" />
+      </motion.div>
+
+      {/* Vector Graphics - Bottom Left */}
+      <motion.div
+        className="absolute -bottom-32 -left-32 w-80 h-80 opacity-15 pointer-events-none"
+        animate={{ scale: [1, 1.2, 1] }}
+        transition={{ duration: 6, repeat: Infinity }}
+      >
+        <div className="w-full h-full bg-gradient-to-tr from-soft-brown to-warm-orange rounded-full blur-3xl" />
+      </motion.div>
+
       {/* Animated Background Blobs */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute top-20 left-10 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-15"
+          className="absolute top-1/4 left-20 w-64 h-64 bg-warm-orange/5 rounded-full mix-blend-multiply filter blur-3xl"
           animate={{
-            x: [0, 100, 0],
-            y: [0, 50, 0],
+            x: [0, 50, 0],
+            y: [0, 30, 0],
           }}
           transition={{
-            duration: 10,
+            duration: 12,
             repeat: Infinity,
             ease: 'easeInOut',
           }}
         />
         <motion.div
-          className="absolute bottom-20 right-10 w-96 h-96 bg-amber-500 rounded-full mix-blend-multiply filter blur-3xl opacity-15"
+          className="absolute bottom-1/4 right-20 w-72 h-72 bg-soft-brown/5 rounded-full mix-blend-multiply filter blur-3xl"
           animate={{
-            x: [0, -100, 0],
-            y: [0, -50, 0],
+            x: [0, -50, 0],
+            y: [0, -30, 0],
           }}
           transition={{
-            duration: 10,
+            duration: 12,
             repeat: Infinity,
             ease: 'easeInOut',
             delay: 2,
           }}
         />
-        <motion.div
-          className="absolute top-1/2 left-1/3 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.1, 0.15, 0.1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
       </div>
-
-      {/* Vector graphics (optional - you can add images here) */}
-      <motion.div
-        className="absolute top-0 right-0 z-0 pointer-events-none opacity-30"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-      >
-        <div className="w-96 h-96 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-full blur-3xl" />
-      </motion.div>
 
       {/* Container */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -125,7 +122,7 @@ export function HeroSection() {
 
         {/* Beam Effect */}
         <motion.div
-          className="mb-12"
+          className="mb-12 opacity-60"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.1 }}
@@ -135,7 +132,7 @@ export function HeroSection() {
 
         {/* Main Heading */}
         <motion.div
-          className="mx-auto max-w-4xl text-center mb-8"
+          className="mx-auto max-w-5xl text-center mb-8"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -144,19 +141,29 @@ export function HeroSection() {
             variants={itemVariants}
             className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
           >
-            <span className="block text-white mb-3">Discover Your Next</span>
-            <span className="block gradient-text text-5xl sm:text-6xl lg:text-7xl font-bold">
-              Adventure With AI
-            </span>
+            <span className="block text-soft-brown mb-3">Your Travel, </span>
+            <motion.span
+              className="block gradient-text-warm text-5xl sm:text-6xl lg:text-7xl font-bold"
+              animate={{
+                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            >
+              Perfectly Planned
+            </motion.span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
             variants={itemVariants}
-            className="text-lg sm:text-xl text-gray-300 mb-8 leading-relaxed max-w-2xl mx-auto"
+            className="text-lg sm:text-xl text-gray-700 mb-8 leading-relaxed max-w-3xl mx-auto"
           >
-            Experience personalized travel planning powered by artificial intelligence.
-            Beautiful itineraries, smart recommendations, and seamless booking—all in one place.
+            Experience the future of travel planning with AI-powered itineraries, smart recommendations, 
+            and seamless booking. Your perfect adventure is just one click away.
           </motion.p>
         </motion.div>
 
@@ -171,10 +178,10 @@ export function HeroSection() {
           <motion.button
             whileHover={{
               scale: 1.05,
-              boxShadow: '0 0 30px rgba(6, 182, 212, 0.5)',
+              boxShadow: '0 20px 40px rgba(255, 125, 92, 0.2)',
             }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-xl font-semibold text-lg shadow-lg hover:from-cyan-600 hover:to-cyan-700 transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-cyan-400/50"
+            className="px-8 py-4 bg-gradient-to-r from-warm-orange to-orange-600 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-orange-400/50"
           >
             <Zap className="w-5 h-5" />
             Start Planning Now
@@ -183,10 +190,10 @@ export function HeroSection() {
           <motion.button
             whileHover={{
               scale: 1.05,
-              boxShadow: '0 0 20px rgba(6, 182, 212, 0.3)',
+              backgroundColor: 'rgba(139, 69, 19, 0.05)',
             }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 border-2 border-cyan-500/50 bg-white/5 backdrop-blur-sm text-cyan-300 rounded-xl font-semibold text-lg hover:bg-cyan-500/10 hover:border-cyan-500 transition-all duration-300 flex items-center justify-center gap-2"
+            className="px-8 py-4 border-2 border-soft-brown/50 bg-white/40 backdrop-blur-sm text-soft-brown rounded-xl font-semibold text-lg hover:border-soft-brown transition-all duration-300 flex items-center justify-center gap-2"
           >
             Learn More
             <MoveRight className="w-5 h-5" />
@@ -195,22 +202,22 @@ export function HeroSection() {
 
         {/* Tech Stack / Features Row */}
         <motion.div
-          className="flex flex-wrap items-center justify-center gap-4 mb-20"
+          className="flex flex-wrap items-center justify-center gap-4 mb-24"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
         >
-          <span className="text-sm text-gray-400">Powered by</span>
-          <div className="flex gap-3">
-            <div className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-xs text-gray-300">
-              Next.js
-            </div>
-            <div className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-xs text-gray-300">
-              AI Models
-            </div>
-            <div className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-xs text-gray-300">
-              Real-time Data
-            </div>
+          <span className="text-sm text-gray-600 font-medium">Trusted by travelers worldwide</span>
+          <div className="flex gap-3 flex-wrap justify-center">
+            {['Next.js', 'AI Models', 'Real-time Data', 'Verified Reviews'].map((tech, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -2 }}
+                className="px-4 py-2 rounded-xl bg-white/60 border border-soft-brown/20 backdrop-blur-sm text-xs text-soft-brown font-medium hover:border-warm-orange/50 transition-all"
+              >
+                {tech}
+              </motion.div>
+            ))}
           </div>
         </motion.div>
 
@@ -253,7 +260,7 @@ export function HeroSection() {
           </motion.div>
 
           {/* Main Feature Cards */}
-          <motion.div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+          <motion.div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {featureCards.map((card, i) => (
               <motion.div
                 key={i}
@@ -269,6 +276,7 @@ export function HeroSection() {
                   title={card.title}
                   description={card.description}
                   icon={card.icon}
+                  isDark={false}
                 />
               </motion.div>
             ))}
@@ -280,12 +288,13 @@ export function HeroSection() {
               <motion.div
                 key={i}
                 variants={itemVariants}
-                className="p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm text-center"
+                className="p-4 rounded-xl bg-white/60 border border-soft-brown/20 backdrop-blur-sm text-center"
+                whileHover={{ y: -5, borderColor: 'rgba(255, 125, 92, 0.5)' }}
               >
-                <div className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-amber-400 bg-clip-text text-transparent">
+                <div className="text-2xl font-bold gradient-text-warm">
                   {stat.number}
                 </div>
-                <div className="text-sm text-gray-400 mt-2">{stat.label}</div>
+                <div className="text-sm text-gray-700 mt-2 font-medium">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
@@ -301,9 +310,9 @@ export function HeroSection() {
             ease: 'easeInOut',
           }}
         >
-          <div className="w-6 h-10 border-2 border-cyan-500/50 rounded-full flex justify-center p-2">
+          <div className="w-6 h-10 border-2 border-soft-brown/50 rounded-full flex justify-center p-2">
             <motion.div
-              className="w-1 h-2 bg-gradient-to-b from-cyan-400 to-amber-400 rounded-full"
+              className="w-1 h-2 bg-gradient-to-b from-warm-orange to-orange-600 rounded-full"
               animate={{ y: [0, 10, 0] }}
               transition={{
                 duration: 2.5,

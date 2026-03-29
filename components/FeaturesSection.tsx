@@ -51,11 +51,11 @@ export function FeaturesSection() {
   }
 
   return (
-    <section className="py-20 sm:py-32 relative overflow-hidden">
+    <section className="py-20 sm:py-32 relative overflow-hidden bg-gradient-to-b from-off-white via-cream to-off-white">
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
-          className="absolute top-1/2 left-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"
+          className="absolute top-1/2 left-0 w-96 h-96 bg-warm-orange/5 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.1, 0.15, 0.1],
@@ -77,10 +77,10 @@ export function FeaturesSection() {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
-            <span className="text-white">Why Choose Travel </span>
-            <span className="gradient-text">AI</span>
+            <span className="text-soft-brown">Why Choose Travel </span>
+            <span className="gradient-text-warm">AI</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-700 text-lg max-w-2xl mx-auto">
             Discover the features that make your travel planning effortless and enjoyable
           </p>
         </motion.div>
@@ -101,24 +101,24 @@ export function FeaturesSection() {
                 variants={itemVariants}
                 whileHover={{
                   y: -10,
-                  boxShadow: '0 20px 40px rgba(6, 182, 212, 0.2)',
+                  boxShadow: '0 20px 40px rgba(255, 125, 92, 0.15)',
                 }}
-                className="group p-6 rounded-xl border border-cyan-500/20 bg-gradient-to-br from-slate-900/50 to-slate-800/30 backdrop-blur-sm hover:border-cyan-500/50 transition-all duration-300"
+                className="group p-6 rounded-xl border border-soft-brown/20 bg-white/60 backdrop-blur-sm hover:border-warm-orange/50 transition-all duration-300"
               >
                 <motion.div
-                  className="mb-4 inline-flex p-3 rounded-lg bg-gradient-to-br from-cyan-500/20 to-amber-500/20"
+                  className="mb-4 inline-flex p-3 rounded-lg bg-gradient-to-br from-warm-orange/20 to-orange-200/20"
                   whileHover={{
                     scale: 1.1,
                     rotate: 5,
                   }}
                 >
-                  <Icon className="w-6 h-6 text-cyan-400 group-hover:text-amber-400 transition-colors" />
+                  <Icon className="w-6 h-6 text-warm-orange group-hover:text-orange-600 transition-colors" />
                 </motion.div>
 
-                <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-cyan-300 transition-colors">
+                <h3 className="text-lg font-semibold text-soft-brown mb-2 group-hover:text-warm-orange transition-colors">
                   {feature.title}
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-gray-700 text-sm leading-relaxed">
                   {feature.description}
                 </p>
               </motion.div>
