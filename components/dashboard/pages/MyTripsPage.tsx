@@ -1,217 +1,216 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useDashboard } from "../DashboardContext";
-import { TripCard, StatCard } from "../DashboardCards";
-import { Plane, Filter, Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useDashboard } from "../DashboardContext";
 
-const allTrips = [
-  { destination: "Paris, France", startDate: "May 20", endDate: "May 27", status: "upcoming" as const, image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=300&q=80", progress: 60 },
-  { destination: "Tokyo, Japan", startDate: "Jun 10", endDate: "Jun 25", status: "upcoming" as const, image: "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=300&q=80", progress: 30 },
-  { destination: "New York, USA", startDate: "Jul 1", endDate: "Jul 8", status: "upcoming" as const, image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=300&q=80", progress: 10 },
-  { destination: "Barcelona, Spain", startDate: "Apr 5", endDate: "Apr 12", status: "completed" as const, image: "https://images.unsplash.com/photo-1583422409516-2895a77efded?w=300&q=80", progress: 100 },
-  { destination: "Bali, Indonesia", startDate: "Mar 15", endDate: "Mar 25", status: "completed" as const, image: "https://images.unsplash.com/photo-1537225228614-b4fad34a0b60?w=300&q=80", progress: 100 },
-  { destination: "Dubai, UAE", startDate: "Feb 10", endDate: "Feb 17", status: "completed" as const, image: "https://images.unsplash.com/photo-1512453409338-ab7779ca7d69?w=300&q=80", progress: 100 },
+const stagger = (i: number) => ({
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+  transition: { delay: i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] as any },
+});
+
+type TripStatus = "all" | "upcoming" | "planning" | "completed";
+
+const TRIPS = [
+  {
+    id: 1, city: "Paris", country: "France", dates: "Apr 11 – Apr 18, 2025",
+    daysLeft: 12, nights: 7, status: "upcoming", emoji: "🗼",
+    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=700&q=80",
+    bg: "from-rose-900 to-orange-800", budget: "₹72,500", spent: "₹14,200",
+    highlights: ["Eiffel Tower", "Louvre", "Montmartre"], progress: 43,
+  },
+  {
+    id: 2, city: "Kyoto", country: "Japan", dates: "Jun 3 – Jun 10, 2025",
+    daysLeft: 65, nights: 7, status: "planning", emoji: "⛩️",
+    image: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=700&q=80",
+    bg: "from-pink-900 to-violet-800", budget: "₹90,000", spent: "₹0",
+    highlights: ["Arashiyama", "Fushimi Inari", "Gion"], progress: 20,
+  },
+  {
+    id: 3, city: "Santorini", country: "Greece", dates: "Aug 20 – Aug 28, 2025",
+    daysLeft: 143, nights: 8, status: "planning", emoji: "🏛️",
+    image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=700&q=80",
+    bg: "from-sky-900 to-blue-800", budget: "₹1,10,000", spent: "₹0",
+    highlights: ["Oia Sunset", "Caldera", "Wine Tasting"], progress: 10,
+  },
+  {
+    id: 4, city: "Bali", country: "Indonesia", dates: "Nov 5 – Nov 14, 2024",
+    daysLeft: 0, nights: 9, status: "completed", emoji: "🌴",
+    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=700&q=80",
+    bg: "from-green-900 to-teal-800", budget: "₹65,000", spent: "₹63,200",
+    highlights: ["Ubud Rice Fields", "Uluwatu", "Seminyak"], progress: 100,
+    rating: 4.8,
+  },
+  {
+    id: 5, city: "Amsterdam", country: "Netherlands", dates: "Sep 12 – Sep 18, 2024",
+    daysLeft: 0, nights: 6, status: "completed", emoji: "🌷",
+    image: "https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=700&q=80",
+    bg: "from-indigo-900 to-blue-800", budget: "₹80,000", spent: "₹78,500",
+    highlights: ["Canal Cruise", "Rijksmuseum", "Vondelpark"], progress: 100,
+    rating: 4.5,
+  },
+  {
+    id: 6, city: "Dubai", country: "UAE", dates: "Jul 4 – Jul 8, 2024",
+    daysLeft: 0, nights: 4, status: "completed", emoji: "🏙️",
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=700&q=80",
+    bg: "from-amber-900 to-yellow-800", budget: "₹55,000", spent: "₹54,100",
+    highlights: ["Burj Khalifa", "Desert Safari", "Marina"], progress: 100,
+    rating: 4.2,
+  },
 ];
 
-export const MyTripsPage = () => {
-  const { isDarkMode } = useDashboard();
-  const [filterStatus, setFilterStatus] = useState<"all" | "upcoming" | "completed">("all");
+const STATS = [
+  { value: "12", label: "Total Trips", sub: "since 2021", color: "from-orange-400 to-pink-500" },
+  { value: "18", label: "Countries", sub: "across 4 continents", color: "from-pink-400 to-rose-500" },
+  { value: "47", label: "Nights Abroad", sub: "this year", color: "from-amber-400 to-orange-500" },
+  { value: "₹6.2L", label: "Total Spent", sub: "avg ₹51k/trip", color: "from-rose-400 to-pink-600" },
+];
 
-  const filteredTrips = filterStatus === "all" 
-    ? allTrips 
-    : allTrips.filter(trip => trip.status === filterStatus);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.1 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
-  };
-
-  const bgClass = isDarkMode ? "bg-gray-900" : "bg-gray-50";
-  const cardBg = isDarkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200";
-  const textClass = isDarkMode ? "text-white" : "text-gray-900";
-  const subtextClass = isDarkMode ? "text-gray-400" : "text-gray-600";
+function TripCard({ trip, dark, i }: { trip: typeof TRIPS[0]; dark: boolean; i: number }) {
+  const [hovered, setHovered] = useState(false);
+  const card = dark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100";
+  const statusConfig = {
+    upcoming:  { label: "12d away",   cls: "bg-orange-500/90 text-white" },
+    planning:  { label: "Planning",   cls: "bg-white/20 text-white backdrop-blur-sm border border-white/30" },
+    completed: { label: "Completed",  cls: "bg-emerald-500/90 text-white" },
+  }[trip.status] ?? { label: trip.status, cls: "" };
 
   return (
     <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-      className={`space-y-6 sm:space-y-8 ${bgClass}`}
+      {...stagger(i)}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      whileHover={{ y: -4 }}
+      className={`border ${card} rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow cursor-pointer`}
     >
-      {/* Header - Enhanced */}
-      <motion.div
-        variants={itemVariants}
-        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
-      >
-        <motion.div
-          whileHover={{ x: 4 }}
-          className="group"
-        >
-          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">My Trips</h1>
-          <p className={`${subtextClass} mt-2 text-sm sm:text-base`}>Organize and track all your adventures</p>
-        </motion.div>
+      {/* Image */}
+      <div className="relative h-44 overflow-hidden">
+        <img
+          src={trip.image} alt={trip.city}
+          className={`w-full h-full object-cover transition-transform duration-700 ${hovered ? "scale-110" : "scale-100"}`}
+        />
+        <div className={`absolute inset-0 bg-gradient-to-t ${trip.bg}/40 to-transparent`} />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        <span className={`absolute top-3 left-3 text-xs font-bold px-2.5 py-1 rounded-full ${statusConfig.cls}`}>
+          {trip.status === "upcoming" ? `${trip.daysLeft}d away` : statusConfig.label}
+        </span>
+        {trip.rating && (
+          <span className="absolute top-3 right-3 text-xs font-bold bg-black/40 backdrop-blur-sm text-amber-400 px-2.5 py-1 rounded-full">
+            ★ {trip.rating}
+          </span>
+        )}
+        <div className="absolute bottom-0 left-0 right-0 p-4">
+          <div className="text-white font-bold text-xl">{trip.emoji} {trip.city}</div>
+          <div className="text-white/70 text-xs">{trip.country} · {trip.nights} nights</div>
+        </div>
+      </div>
+
+      {/* Body */}
+      <div className="p-4">
+        <div className="flex items-center justify-between mb-3">
+          <span className={`text-xs ${dark ? "text-gray-500" : "text-gray-400"}`}>{trip.dates}</span>
+          <span className={`text-xs font-semibold ${dark ? "text-gray-300" : "text-gray-700"}`}>{trip.budget}</span>
+        </div>
+
+        {/* Highlights */}
+        <div className="flex flex-wrap gap-1.5 mb-3">
+          {trip.highlights.map((h, idx) => (
+            <span key={idx} className={`text-xs px-2 py-0.5 rounded-full ${dark ? "bg-gray-800 text-gray-400" : "bg-gray-100 text-gray-500"}`}>{h}</span>
+          ))}
+        </div>
+
+        {/* Progress bar */}
+        {trip.status !== "completed" && (
+          <div>
+            <div className="flex justify-between text-xs mb-1">
+              <span className={dark ? "text-gray-600" : "text-gray-400"}>Planning progress</span>
+              <span className="text-orange-400 font-semibold">{trip.progress}%</span>
+            </div>
+            <div className={`h-1.5 rounded-full ${dark ? "bg-gray-800" : "bg-gray-100"}`}>
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${trip.progress}%` }}
+                transition={{ delay: 0.3 + i * 0.1, duration: 0.8, ease: "easeOut" }}
+                className="h-full rounded-full bg-gradient-to-r from-orange-400 to-pink-500"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Completed spend */}
+        {trip.status === "completed" && (
+          <div className={`flex items-center justify-between text-xs ${dark ? "text-gray-500" : "text-gray-400"}`}>
+            <span>Spent: <span className={`font-semibold ${dark ? "text-gray-300" : "text-gray-700"}`}>{trip.spent}</span></span>
+            <span className="text-emerald-500 font-semibold">✓ Completed</span>
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
+export const MyTripsPage = () => {
+  const { isDarkMode } = useDashboard();
+  const dark = isDarkMode;
+  const [filter, setFilter] = useState<TripStatus>("all");
+  const card = dark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100";
+
+  const filtered = filter === "all" ? TRIPS : TRIPS.filter(t => t.status === filter);
+
+  return (
+    <div className={`max-w-5xl mx-auto ${dark ? "text-white" : "text-gray-900"}`}>
+
+      {/* Header */}
+      <motion.div {...stagger(0)} className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">My Trips ✈️</h1>
+          <p className={`text-sm mt-0.5 ${dark ? "text-gray-500" : "text-gray-400"}`}>All your adventures, past and future</p>
+        </div>
         <motion.button
-          whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(249, 115, 22, 0.3)" }}
-          whileTap={{ scale: 0.95 }}
-          className="px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-2xl transition-all gap-2 w-full sm:w-auto flex items-center justify-center"
+          whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+          className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-pink-500 text-white font-semibold px-5 py-2.5 rounded-2xl shadow-lg shadow-orange-500/20 text-sm"
         >
-          <Plus size={20} />
-          New Trip
+          + New Trip
         </motion.button>
       </motion.div>
 
-      {/* Stats - Enhanced */}
-      <motion.div 
-        variants={containerVariants}
-        className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6"
-      >
-        {[
-          { title: "Total Trips", value: 24, color: "from-blue-500 to-cyan-500" },
-          { title: "Upcoming", value: 3, color: "from-orange-500 to-red-500" },
-          { title: "Completed", value: 21, color: "from-green-500 to-emerald-500" },
-        ].map((stat, idx) => (
-          <motion.div
-            key={idx}
-            variants={itemVariants}
-            whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
-            className={`${cardBg} p-6 rounded-xl border shadow-lg hover:shadow-2xl transition-all overflow-hidden relative`}
-          >
-            <motion.div
-              className={`absolute inset-0 bg-gradient-to-r ${stat.color} opacity-0 hover:opacity-5 transition-opacity`}
-            />
-            <div className="relative z-10">
-              <p className={`text-sm ${subtextClass}`}>{stat.title}</p>
-              <p className={`text-3xl font-bold ${textClass} mt-2`}>{stat.value}</p>
-              <motion.div
-                className={`h-1 w-12 bg-gradient-to-r ${stat.color} rounded-full mt-4`}
-                initial={{ width: 0 }}
-                whileInView={{ width: 48 }}
-                transition={{ duration: 0.8 }}
-              />
-            </div>
-          </motion.div>
+      {/* Stats row */}
+      <motion.div {...stagger(1)} className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+        {STATS.map((s, i) => (
+          <div key={i} className={`border ${card} rounded-2xl p-4`}>
+            <div className={`text-2xl font-black bg-gradient-to-r ${s.color} bg-clip-text text-transparent`}>{s.value}</div>
+            <div className={`text-xs font-semibold mt-0.5 ${dark ? "text-gray-300" : "text-gray-700"}`}>{s.label}</div>
+            <div className={`text-xs mt-0.5 ${dark ? "text-gray-600" : "text-gray-400"}`}>{s.sub}</div>
+          </div>
         ))}
       </motion.div>
 
-      {/* Filters - Enhanced */}
-      <motion.div
-        variants={itemVariants}
-        className="flex flex-wrap gap-3 items-center"
-      >
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 3, repeat: Infinity }}
-          className="text-orange-500"
-        >
-          <Filter size={20} />
-        </motion.div>
-        {(["all", "upcoming", "completed"] as const).map((status) => (
-          <motion.button
-            key={status}
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setFilterStatus(status)}
-            className={`px-4 py-2 rounded-lg font-medium transition-all text-sm sm:text-base relative overflow-hidden group ${
-              filterStatus === status
-                ? "bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg"
-                : `${cardBg} ${textClass} border shadow-md hover:shadow-lg`
+      {/* Filter tabs */}
+      <motion.div {...stagger(2)} className="flex gap-2 mb-5 flex-wrap">
+        {(["all", "upcoming", "planning", "completed"] as TripStatus[]).map(f => (
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            className={`px-4 py-2 rounded-full text-sm font-semibold transition-all capitalize ${
+              filter === f
+                ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white shadow-md"
+                : dark ? "bg-gray-800 text-gray-400 hover:bg-gray-700" : "bg-gray-100 text-gray-500 hover:bg-gray-200"
             }`}
           >
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-400 opacity-0 group-hover:opacity-10 transition-opacity"
-              initial={false}
-            />
-            <span className="relative z-10">{status.charAt(0).toUpperCase() + status.slice(1)}</span>
-          </motion.button>
+            {f} {f === "all" ? `(${TRIPS.length})` : `(${TRIPS.filter(t => t.status === f).length})`}
+          </button>
         ))}
       </motion.div>
 
-      {/* Trips Grid - Enhanced */}
-      <motion.div
-        variants={containerVariants}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-      >
-        {filteredTrips.map((trip, index) => (
-          <motion.div
-            key={index}
-            variants={itemVariants}
-            whileHover={{ y: -12, boxShadow: "0 30px 60px rgba(0,0,0,0.3)" }}
-            className={`${cardBg} rounded-xl overflow-hidden border shadow-lg hover:shadow-2xl transition-all group`}
-          >
-            <div className="relative h-56 overflow-hidden">
-              <motion.img
-                src={trip.image}
-                alt={trip.destination}
-                className="w-full h-full object-cover group-hover:scale-120 transition-transform duration-500"
-              />
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col items-end justify-between p-4"
-              >
-                <span className={`px-3 py-1 rounded-full text-xs font-semibold text-white ${
-                  trip.status === 'upcoming' 
-                    ? 'bg-orange-500' 
-                    : 'bg-green-500'
-                }`}>
-                  {trip.status.charAt(0).toUpperCase() + trip.status.slice(1)}
-                </span>
-              </motion.div>
-            </div>
-            <div className="p-5">
-              <motion.p className={`font-bold text-lg ${textClass}`}>{trip.destination}</motion.p>
-              <p className={`text-xs ${subtextClass} mt-1`}>{trip.startDate} - {trip.endDate}</p>
-              
-              <div className="mt-4 space-y-2">
-                <div className="flex justify-between items-center mb-1">
-                  <p className={`text-xs font-semibold ${subtextClass}`}>Progress</p>
-                  <p className={`text-xs font-bold text-orange-500`}>{trip.progress}%</p>
-                </div>
-                <div className={`w-full ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'} rounded-full h-2 overflow-hidden`}>
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${trip.progress}%` }}
-                    transition={{ duration: 1, delay: index * 0.1 }}
-                    className="h-full bg-gradient-to-r from-orange-400 to-red-500"
-                  />
-                </div>
-              </div>
-
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="mt-4 w-full py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg font-semibold text-sm hover:shadow-lg transition-all"
-              >
-                View Details
-              </motion.button>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
-
-      {/* Empty State */}
-      {filteredTrips.length === 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className={`${cardBg} rounded-xl p-12 text-center border`}
-        >
-          <Plane size={48} className={`mx-auto mb-4 ${subtextClass}`} />
-          <p className={`${textClass} text-lg font-semibold`}>No trips found</p>
-          <p className={`${subtextClass} text-sm mt-1`}>Create a new trip to get started</p>
-        </motion.div>
-      )}
-    </motion.div>
+      {/* Trip grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <AnimatePresence mode="popLayout">
+          {filtered.map((trip, i) => (
+            <TripCard key={trip.id} trip={trip} dark={dark} i={i} />
+          ))}
+        </AnimatePresence>
+      </div>
+    </div>
   );
 };

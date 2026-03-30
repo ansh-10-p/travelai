@@ -1,189 +1,216 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useDashboard } from "../DashboardContext";
-import { Heart, MapPin, DollarSign, Calendar } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useDashboard } from "../DashboardContext";
 
-const wishlistItems = [
-  { id: 1, destination: "Santorini, Greece", rating: 4.9, price: "$3,200", saved: true, image: "https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=300&q=80" },
-  { id: 2, destination: "Maldives", rating: 4.8, price: "$2,500", saved: true, image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=300&q=80" },
-  { id: 3, destination: "Iceland", rating: 4.7, price: "$1,800", saved: false, image: "https://images.unsplash.com/photo-1504681869696-d977e13a3082?w=300&q=80" },
-  { id: 4, destination: "New Zealand", rating: 4.9, price: "$2,800", saved: true, image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80" },
+const stagger = (i: number) => ({
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+  transition: { delay: i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] as any },
+});
+
+type WishCategory = "all" | "destinations" | "hotels" | "activities" | "restaurants";
+
+const WISHLIST = [
+  {
+    id: 1, category: "destinations", emoji: "🌴",
+    title: "Bali, Indonesia", sub: "Southeast Asia · Best Nov–Mar",
+    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80",
+    match: 94, budget: "₹65,000", note: "Loved by similar travellers", saved: "3 days ago",
+    tags: ["Beach", "Culture", "Yoga"],
+  },
+  {
+    id: 2, category: "destinations", emoji: "🍋",
+    title: "Amalfi Coast, Italy", sub: "Southern Europe · Best May–Oct",
+    image: "https://images.unsplash.com/photo-1612698093158-e07ac200d44e?w=600&q=80",
+    match: 87, budget: "₹95,000", note: "Similar to Santorini wishlist", saved: "1 week ago",
+    tags: ["Scenic", "Food", "Coastline"],
+  },
+  {
+    id: 3, category: "destinations", emoji: "🌌",
+    title: "Reykjavík, Iceland", sub: "Northern Europe · Best Sep–Mar",
+    image: "https://images.unsplash.com/photo-1474690870753-1b92efa1f2d8?w=600&q=80",
+    match: 79, budget: "₹1,20,000", note: "Northern lights season", saved: "2 weeks ago",
+    tags: ["Northern Lights", "Adventure", "Nature"],
+  },
+  {
+    id: 4, category: "hotels", emoji: "🏨",
+    title: "Le Meurice, Paris", sub: "1st Arrondissement · 5-star Palace",
+    image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80",
+    match: 91, budget: "₹18,000/night", note: "Overlooking Tuileries Garden", saved: "5 days ago",
+    tags: ["Luxury", "Central", "Michelin"],
+  },
+  {
+    id: 5, category: "hotels", emoji: "⛺",
+    title: "Overwater Villa, Maldives", sub: "Velaa Private Island · All-inclusive",
+    image: "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=600&q=80",
+    match: 88, budget: "₹45,000/night", note: "Dream honeymoon stay", saved: "1 month ago",
+    tags: ["Overwater", "Luxury", "Snorkelling"],
+  },
+  {
+    id: 6, category: "activities", emoji: "🎭",
+    title: "Moulin Rouge, Paris", sub: "Dinner + Show · Montmartre",
+    image: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600&q=80",
+    match: 83, budget: "₹8,500/person", note: "Book 2 weeks in advance", saved: "4 days ago",
+    tags: ["Entertainment", "Dinner", "Iconic"],
+  },
+  {
+    id: 7, category: "activities", emoji: "🧗",
+    title: "Hot Air Balloon, Cappadocia", sub: "Sunrise flight · Turkey",
+    image: "https://images.unsplash.com/photo-1533130061792-64b345e4a833?w=600&q=80",
+    match: 90, budget: "₹12,000/person", note: "Bucket list experience", saved: "2 weeks ago",
+    tags: ["Adventure", "Sunrise", "Scenic"],
+  },
+  {
+    id: 8, category: "restaurants", emoji: "🍽️",
+    title: "Le Jules Verne, Paris", sub: "Eiffel Tower · 1 Michelin Star",
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80",
+    match: 85, budget: "₹6,000/person", note: "Inside the Eiffel Tower", saved: "1 week ago",
+    tags: ["Fine Dining", "Eiffel", "Romantic"],
+  },
 ];
 
-export const WishlistPage = () => {
-  const { isDarkMode } = useDashboard();
-  const [items, setItems] = useState(wishlistItems);
+const CATEGORY_LABELS: Record<WishCategory, string> = {
+  all:          "All",
+  destinations: "✈️ Destinations",
+  hotels:       "🏨 Hotels",
+  activities:   "🎯 Activities",
+  restaurants:  "🍽️ Restaurants",
+};
 
-  const toggleSave = (id: number) => {
-    setItems(items.map(item => item.id === id ? { ...item, saved: !item.saved } : item));
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.1 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
-  };
-
-  const bgClass = isDarkMode ? "bg-gray-900" : "bg-gray-50";
-  const cardBg = isDarkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200";
-  const textClass = isDarkMode ? "text-white" : "text-gray-900";
-  const subtextClass = isDarkMode ? "text-gray-400" : "text-gray-600";
+function WishCard({ item, dark, i }: { item: typeof WISHLIST[0]; dark: boolean; i: number }) {
+  const [saved, setSaved] = useState(true);
+  const card = dark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100";
 
   return (
     <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-      className={`space-y-6 sm:space-y-8 ${bgClass}`}
+      {...stagger(i)}
+      layout
+      exit={{ opacity: 0, scale: 0.9 }}
+      whileHover={{ y: -4 }}
+      className={`border ${card} rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow cursor-pointer group`}
     >
-      {/* Header - Enhanced */}
-      <motion.div 
-        variants={itemVariants}
-        className="space-y-2"
-      >
-        <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">Wishlist</h1>
-        <p className={`${subtextClass} text-sm sm:text-base`}>Save your dream destinations and plan future adventures</p>
+      {/* Image */}
+      <div className="relative h-44 overflow-hidden">
+        <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+
+        {/* Match badge */}
+        <div className="absolute top-3 left-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">
+          {item.match}% match
+        </div>
+
+        {/* Heart */}
+        <motion.button
+          whileTap={{ scale: 0.8 }}
+          onClick={() => setSaved(s => !s)}
+          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center"
+        >
+          <span className={`text-lg transition-all ${saved ? "text-pink-400" : "text-white/60"}`}>
+            {saved ? "♥" : "♡"}
+          </span>
+        </motion.button>
+
+        <div className="absolute bottom-0 left-0 right-0 p-4">
+          <div className="text-white font-bold text-base leading-tight">{item.emoji} {item.title}</div>
+          <div className="text-white/60 text-xs">{item.sub}</div>
+        </div>
+      </div>
+
+      {/* Body */}
+      <div className="p-4">
+        <div className="flex flex-wrap gap-1.5 mb-3">
+          {item.tags.map((t, idx) => (
+            <span key={idx} className={`text-xs px-2 py-0.5 rounded-full ${dark ? "bg-gray-800 text-gray-400" : "bg-gray-100 text-gray-500"}`}>{t}</span>
+          ))}
+        </div>
+
+        <div className={`text-xs italic mb-3 ${dark ? "text-gray-500" : "text-gray-400"}`}>🤖 {item.note}</div>
+
+        <div className="flex items-center justify-between">
+          <div>
+            <div className={`text-sm font-bold ${dark ? "text-white" : "text-gray-800"}`}>{item.budget}</div>
+            <div className={`text-xs ${dark ? "text-gray-600" : "text-gray-400"}`}>Saved {item.saved}</div>
+          </div>
+          <motion.button
+            whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+            className="text-xs font-bold bg-gradient-to-r from-orange-500 to-pink-500 text-white px-4 py-2 rounded-xl shadow-md"
+          >
+            Plan →
+          </motion.button>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+export const WishlistPage = () => {
+  const { isDarkMode } = useDashboard();
+  const dark = isDarkMode;
+  const [cat, setCat] = useState<WishCategory>("all");
+  const card = dark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100";
+
+  const filtered = cat === "all" ? WISHLIST : WISHLIST.filter(w => w.category === cat);
+
+  return (
+    <div className={`max-w-5xl mx-auto ${dark ? "text-white" : "text-gray-900"}`}>
+
+      {/* Header */}
+      <motion.div {...stagger(0)} className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Wishlist 💖</h1>
+          <p className={`text-sm mt-0.5 ${dark ? "text-gray-500" : "text-gray-400"}`}>Places and experiences you're dreaming of</p>
+        </div>
+        <div className={`text-sm font-semibold px-4 py-2 rounded-2xl border ${card}`}>
+          {WISHLIST.length} saved
+        </div>
       </motion.div>
 
-      {/* Wishlist Items Grid - Enhanced */}
+      {/* AI Banner */}
       <motion.div
-        variants={containerVariants}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        {...stagger(1)}
+        className="relative overflow-hidden rounded-3xl mb-6 p-5"
+        style={{ background: "linear-gradient(135deg,#1a0f2e,#2d1008)" }}
       >
-        {items.map((item, index) => (
-          <motion.div
-            key={item.id}
-            variants={itemVariants}
-            whileHover={{ y: -12, boxShadow: "0 30px 60px rgba(0,0,0,0.3)" }}
-            className={`${cardBg} rounded-xl overflow-hidden border shadow-lg hover:shadow-2xl transition-all flex flex-col h-full group`}
+        <div className="absolute top-0 right-0 w-48 h-48 bg-orange-500/20 rounded-full blur-3xl" />
+        <div className="relative z-10 flex items-center gap-4">
+          <div className="text-3xl">🤖</div>
+          <div>
+            <div className="text-white font-bold text-sm mb-0.5">AI added 3 new items to your wishlist</div>
+            <div className="text-white/50 text-xs">Based on your Bali trip and Santorini wishlist — Amalfi, Iceland & Cappadocia match your travel DNA</div>
+          </div>
+          <button className="ml-auto flex-shrink-0 bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-colors">
+            View all →
+          </button>
+        </div>
+      </motion.div>
+
+      {/* Category tabs */}
+      <motion.div {...stagger(2)} className="flex gap-2 mb-5 flex-wrap">
+        {(Object.keys(CATEGORY_LABELS) as WishCategory[]).map(c => (
+          <button
+            key={c}
+            onClick={() => setCat(c)}
+            className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+              cat === c
+                ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white shadow-md"
+                : dark ? "bg-gray-800 text-gray-400 hover:bg-gray-700" : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+            }`}
           >
-            {/* Image Section */}
-            <div className="relative h-40 sm:h-48 flex-shrink-0 overflow-hidden">
-              <motion.img 
-                src={item.image} 
-                alt={item.destination} 
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"
-              />
-              
-              {/* Save Button - Enhanced */}
-              <motion.button
-                layout
-                whileHover={{ scale: 1.25 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={() => toggleSave(item.id)}
-                className="absolute top-4 right-4 p-3 bg-white rounded-full shadow-lg hover:bg-gray-100 transition-all z-10"
-              >
-                <motion.div
-                  animate={item.saved ? { scale: [1, 1.3, 1] } : {}}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Heart 
-                    size={20} 
-                    className={item.saved ? "fill-red-500 text-red-500" : "text-gray-400 hover:text-red-500"}
-                  />
-                </motion.div>
-              </motion.button>
-
-              {/* Rating Badge */}
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="absolute bottom-4 left-4 bg-black/70 backdrop-blur px-3 py-1 rounded-lg text-white text-sm font-semibold"
-              >
-                <span className="text-yellow-400">★</span> {item.rating}
-              </motion.div>
-            </div>
-
-            {/* Content Section */}
-            <div className="p-6 flex-1 flex flex-col">
-              <motion.h3 
-                className={`text-base sm:text-lg font-bold ${textClass} line-clamp-2`}
-              >
-                {item.destination}
-              </motion.h3>
-
-              {/* Stats */}
-              <motion.div 
-                className="flex items-center gap-3 mt-4 text-sm"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
-                <div className={`flex items-center gap-1 ${subtextClass}`}>
-                  <MapPin size={16} />
-                  <span>Popular</span>
-                </div>
-              </motion.div>
-
-              {/* Price */}
-              <motion.p 
-                className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent mt-4"
-                initial={{ scale: 0.8 }}
-                whileInView={{ scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                {item.price}
-              </motion.p>
-
-              {/* Explore Button */}
-              <motion.button
-                whileHover={{ scale: 1.05, boxShadow: "0 15px 30px rgba(249, 115, 22, 0.3)" }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full mt-auto py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg font-semibold shadow-lg hover:shadow-2xl transition-all"
-              >
-                Explore →
-              </motion.button>
-            </div>
-          </motion.div>
+            {CATEGORY_LABELS[c]}
+          </button>
         ))}
       </motion.div>
 
-      {/* Empty State */}
-      {items.length === 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className={`${cardBg} rounded-xl p-12 text-center border`}
-        >
-          <Heart size={48} className={`mx-auto mb-4 ${subtextClass}`} />
-          <p className={`${textClass} text-lg font-semibold`}>Your wishlist is empty</p>
-          <p className={`${subtextClass} text-sm mt-1`}>Start exploring destinations to add them to your wishlist</p>
-        </motion.div>
-      )}
-
-      {/* Saved Count */}
-      {items.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className={`${cardBg} p-6 rounded-xl border shadow-lg text-center`}
-        >
-          <p className={`text-sm ${subtextClass}`}>Saved Destinations</p>
-          <motion.p 
-            className="text-4xl font-bold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent mt-2"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          >
-            {items.filter(i => i.saved).length}
-          </motion.p>
-        </motion.div>
-      )}
-    </motion.div>
+      {/* Grid */}
+      <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <AnimatePresence mode="popLayout">
+          {filtered.map((item, i) => (
+            <WishCard key={item.id} item={item} dark={dark} i={i} />
+          ))}
+        </AnimatePresence>
+      </motion.div>
+    </div>
   );
 };
