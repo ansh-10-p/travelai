@@ -1,12 +1,13 @@
 "use client";
 
-import { DashboardProvider } from "@/components/dashboard/DashboardContext";
-import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
+import { AppProvider, useApp } from "@/components/travel/AppContext";
+import { AppLayout }    from "@/components/travel/Applayout";
+ 
 
 export default function DashboardPage() {
   return (
-    <DashboardProvider>
-      <DashboardLayout />
-    </DashboardProvider>
+    <AppProvider>
+      <AppLayout />
+    </AppProvider>
   );
 }

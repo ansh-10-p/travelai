@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useDashboard } from "../DashboardContext";
+  import { AppProvider, useApp } from '../../travel/AppContext';
 
 const stagger = (i: number) => ({
   initial: { opacity: 0, y: 20 },
@@ -76,7 +76,7 @@ const badgeColors: Record<string, string> = {
 };
 
 export const MessagesPage = () => {
-  const { isDarkMode } = useDashboard();
+  const { isDarkMode } = useApp();
   const dark = isDarkMode;
   const [active, setActive] = useState(CONVERSATIONS[0]);
   const [input, setInput] = useState("");

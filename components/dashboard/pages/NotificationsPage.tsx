@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useDashboard } from "../DashboardContext";
+  import { AppProvider, useApp } from '../../travel/AppContext';
 import { Bell, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -14,7 +14,7 @@ const notifications = [
 ];
 
 export const NotificationsPage = () => {
-  const { isDarkMode } = useDashboard();
+  const { isDarkMode } = useApp();
   const [items, setItems] = useState(notifications);
 
   const deleteNotification = (id: number) => {

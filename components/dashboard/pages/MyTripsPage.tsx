@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useDashboard } from "../DashboardContext";
+  import { AppProvider, useApp } from '../../travel/AppContext';
 
 const stagger = (i: number) => ({
   initial: { opacity: 0, y: 24 },
@@ -151,7 +151,7 @@ function TripCard({ trip, dark, i }: { trip: typeof TRIPS[0]; dark: boolean; i: 
 }
 
 export const MyTripsPage = () => {
-  const { isDarkMode } = useDashboard();
+  const { isDarkMode } = useApp();
   const dark = isDarkMode;
   const [filter, setFilter] = useState<TripStatus>("all");
   const card = dark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100";

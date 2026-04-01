@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { useDashboard } from "../DashboardContext";
+  import { AppProvider, useApp } from '../../travel/AppContext';
 import {
   LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
@@ -70,7 +70,7 @@ const INSIGHTS = [
 ];
 
 export const AnalyticsPage = () => {
-  const { isDarkMode } = useDashboard();
+  const { isDarkMode } = useApp();
   const dark = isDarkMode;
   const [period, setPeriod] = useState<"6m" | "1y" | "all">("1y");
 

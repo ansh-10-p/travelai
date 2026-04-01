@@ -1,214 +1,207 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useDashboard } from "../DashboardContext";
-import { User, Mail, MapPin, Calendar, Award } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { motion } from "framer-motion"; 
+import { useApp } from '../../travel/AppContext';
+import { BtnPrimary, stagger, Toggle, Divider } from "../../ui/ui";
+
+const BADGES = [
+  { icon: "🌍", label: "Globe Trotter",     desc: "18 countries" },
+  { icon: "✈️", label: "Frequent Flyer",    desc: "12 trips" },
+  { icon: "⭐", label: "Top Reviewer",      desc: "25 reviews" },
+  { icon: "💰", label: "Smart Spender",     desc: "₹38k saved" },
+  { icon: "🏨", label: "Connoisseur",       desc: "47 nights" },
+  { icon: "🗺️", label: "Explorer",         desc: "4 continents" },
+];
+
+const TRAVEL_PREFS = [
+  { label: "Budget range",      value: "₹50k – ₹1.2L per trip" },
+  { label: "Flight class",      value: "Economy / Premium Eco"  },
+  { label: "Avg trip length",   value: "7–10 days"              },
+  { label: "Preferred regions", value: "Europe, Southeast Asia" },
+  { label: "Favourite stay",    value: "Airbnb / Boutique hotel"},
+];
+
+const STYLE_TAGS = ["Culture", "Food", "Art", "Architecture", "Nature", "Adventure", "Nightlife", "Photography"];
 
 export const ProfilePage = () => {
-  const { isDarkMode } = useDashboard();
+  const { isDarkMode } = useApp();
+  const dark = isDarkMode;
+  const [editing, setEditing] = useState(false);
+  const [name, setName]   = useState("Sneha Patel");
+  const [bio, setBio]     = useState("Travel addict 🌍 · Coffee lover ☕ · Always chasing sunsets 🌅");
+  const [budgetStyle, setBudgetStyle] = useState("smart");
+  const [activeTags, setActiveTags]   = useState(["Culture", "Food", "Art", "Architecture"]);
+  const [settings, setSettings] = useState({
+    priceAlerts: true, tripSuggestions: true, groupCollab: true,
+    budgetAlerts: true, emailDigest: false, smsAlerts: false,
+  });
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.1 }
-    }
-  };
+  const toggleTag = (t: string) =>
+    setActiveTags(prev => prev.includes(t) ? prev.filter(x => x !== t) : [...prev, t]);
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
-  };
+  const toggleSetting = (k: keyof typeof settings) =>
+    setSettings(s => ({ ...s, [k]: !s[k] }));
 
-  const bgClass = isDarkMode ? "bg-gray-900" : "bg-gray-50";
-  const cardBg = isDarkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200";
-  const textClass = isDarkMode ? "text-white" : "text-gray-900";
-  const subtextClass = isDarkMode ? "text-gray-400" : "text-gray-600";
-  
+  const card = `rounded-2xl border ${dark ? "border-gray-800 bg-gray-900" : "border-gray-100 bg-white"} p-5 mb-4`;
+
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-      className={`space-y-6 sm:space-y-8 ${bgClass}`}
-    >
-      {/* Header - Enhanced */}
-      <motion.div 
-        variants={itemVariants}
-        className="space-y-2"
-      >
-        <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">Profile</h1>
-        <p className={`${subtextClass} text-sm sm:text-base`}>Manage your travel profile and achievements</p>
-      </motion.div>
+    <div className="pb-10">
+      {/* ── HEADER ── */}
+      <div className="mb-6">
+        <h1 className={`text-2xl md:text-3xl font-bold mb-1 ${dark ? "text-white" : "text-gray-900"}`}>
+          Profile & Preferences 👤
+        </h1>
+        <p className={`text-sm ${dark ? "text-gray-400" : "text-gray-500"}`}>
+          Your travel identity and AI personalisation
+        </p>
+      </div>
 
-      {/* Profile Header - Enhanced */}
-      <motion.div
-        variants={itemVariants}
-        whileHover={{ boxShadow: "0 25px 50px rgba(0,0,0,0.15)" }}
-        className={`${cardBg} p-6 sm:p-8 rounded-xl border shadow-lg hover:shadow-2xl transition-all overflow-hidden relative`}
-      >
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-red-500/10 opacity-0 hover:opacity-100 transition-opacity"
-        />
-        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center gap-6">
-          <motion.div
-            whileHover={{ scale: 1.15 }}
-            className="relative"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&q=80"
-              alt="Profile"
-              className="w-28 h-28 sm:w-40 sm:h-40 rounded-full object-cover border-4 border-gradient-to-r from-orange-500 to-red-500 flex-shrink-0 shadow-xl"
-            />
-            <motion.div
-              animate={{ scale: [1, 1.3, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-orange-400 to-red-400 rounded-full border-4 border-white shadow-lg"
-            />
-          </motion.div>
-          <div className="flex-1">
-            <motion.h2 
-              className={`text-2xl sm:text-3xl font-bold ${textClass}`}
-            >
-              Alex Johnson
-            </motion.h2>
-            <p className={`${subtextClass} mt-1 text-sm sm:text-base`}>Adventure Enthusiast • Travel Blogger</p>
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-4">
-              <motion.span
-                whileHover={{ scale: 1.1 }}
-                className="text-xs sm:text-sm bg-gradient-to-r from-orange-500/20 to-red-500/20 text-orange-600 dark:text-orange-400 px-3 py-1 rounded-full font-semibold border border-orange-500/30"
-              >
-                ⭐ Verified Traveler
-              </motion.span>
-              <motion.span
-                whileHover={{ scale: 1.1 }}
-                className={`text-xs sm:text-sm px-3 py-1 rounded-full font-semibold border ${
-                  isDarkMode 
-                    ? "bg-green-900/30 text-green-400 border-green-600/30" 
-                    : "bg-green-100 text-green-700 border-green-300"
-                }`}
-              >
-                ✓ Active Member
-              </motion.span>
-            </div>
+      {/* Profile card */}
+      <motion.div {...stagger(0)} className={card}>
+        {/* Cover */}
+        <div className="-mx-5 -mt-5 h-24 rounded-t-2xl bg-gradient-to-r from-orange-500 via-pink-500 to-rose-400 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=40)", backgroundSize: "cover" }} />
+        </div>
+        
+        {/* Avatar + actions */}
+        <div className="flex items-end justify-between -mt-8 mb-4 px-0 relative z-10">
+          <div className={`w-16 h-16 rounded-2xl border-4 ${dark ? "border-gray-900" : "border-white"} bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center text-3xl shadow-lg`}>
+            👩
           </div>
-          <motion.button
-            whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(249, 115, 22, 0.3)" }}
-            whileTap={{ scale: 0.95 }}
-            className="px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl font-semibold shadow-lg hover:shadow-2xl transition-all w-full sm:w-auto"
-          >
-            Edit Profile
-          </motion.button>
+          <div className="flex gap-2">
+            <BtnPrimary onClick={() => setEditing(e => !e)} className="text-xs py-2 px-4 shadow-sm">
+              {editing ? "Save" : "Edit Profile"}
+            </BtnPrimary>
+          </div>
         </div>
-      </motion.div>
 
-      {/* Profile Information - Enhanced */}
-      <motion.div
-        variants={containerVariants}
-        className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"
-      >
-        {[
-          { icon: Mail, label: "Email", value: "alex@example.com", color: "from-blue-500 to-cyan-500" },
-          { icon: MapPin, label: "Location", value: "New York, USA", color: "from-purple-500 to-pink-500" },
-          { icon: Calendar, label: "Member Since", value: "January 2023", color: "from-green-500 to-emerald-500" },
-          { icon: Award, label: "Total Trips", value: "24 Destinations", color: "from-orange-500 to-red-500" },
-        ].map((info, index) => {
-          const Icon = info.icon;
-          return (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
-              className={`${cardBg} p-6 rounded-xl border shadow-lg hover:shadow-2xl transition-all flex items-center gap-4 group overflow-hidden relative`}
-            >
-              <motion.div
-                className={`absolute inset-0 bg-gradient-to-r ${info.color} opacity-0 group-hover:opacity-5 transition-opacity`}
-              />
-              <motion.div
-                whileHover={{ scale: 1.2, rotate: 10 }}
-                className={`w-12 h-12 rounded-lg bg-gradient-to-r ${info.color} p-2.5 flex-shrink-0 shadow-md`}
-              >
-                <Icon className="w-full h-full text-white" />
-              </motion.div>
-              <div className="min-w-0 relative z-10">
-                <p className={`text-xs sm:text-sm ${subtextClass}`}>{info.label}</p>
-                <p className={`text-sm sm:text-lg font-semibold ${textClass} break-all`}>{info.value}</p>
-              </div>
-            </motion.div>
-          );
-        })}
-      </motion.div>
+        {editing ? (
+          <div className="space-y-2 mb-4">
+            <input value={name} onChange={e => setName(e.target.value)}
+              className={`w-full text-lg font-bold rounded-xl px-3 py-2 outline-none border ${dark ? "bg-gray-800 border-gray-700 text-white" : "bg-gray-50 border-gray-200 text-gray-900"}`} />
+            <input value={bio} onChange={e => setBio(e.target.value)}
+              className={`w-full text-sm rounded-xl px-3 py-2 outline-none border ${dark ? "bg-gray-800 border-gray-700 text-gray-300" : "bg-gray-50 border-gray-200 text-gray-500"}`} />
+          </div>
+        ) : (
+          <div className="mb-4">
+            <h2 className={`text-xl font-bold ${dark ? "text-white" : "text-gray-900"}`}>{name}</h2>
+            <p className={`text-sm mt-0.5 ${dark ? "text-gray-400" : "text-gray-600"}`}>{bio}</p>
+            <p className={`text-xs mt-1 ${dark ? "text-gray-500" : "text-gray-400"}`}>📍 Mumbai, India · 🗓️ Member since Jan 2021</p>
+          </div>
+        )}
 
-      {/* Statistics - Enhanced */}
-      <motion.div
-        variants={itemVariants}
-        whileHover={{ boxShadow: "0 25px 50px rgba(0,0,0,0.15)" }}
-        className={`${cardBg} p-6 sm:p-8 rounded-xl border shadow-lg hover:shadow-2xl transition-all`}
-      >
-        <h3 className={`text-lg sm:text-xl font-bold ${textClass} mb-6`}>📊 Travel Statistics</h3>
-        <motion.div 
-          variants={containerVariants}
-          className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
-        >
+        {/* STATS TILES */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { label: "Total Trips", value: "24", color: "from-blue-500 to-cyan-500" },
-            { label: "Countries", value: "18", color: "from-purple-500 to-pink-500" },
-            { label: "Continents", value: "6", color: "from-green-500 to-emerald-500" },
-            { label: "Travel Days", value: "360", color: "from-orange-500 to-red-500" },
-          ].map((stat, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              whileHover={{ scale: 1.1, rotate: 2 }}
-              className="text-center group"
-            >
-              <motion.p 
-                className={`text-3xl sm:text-4xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}
-                initial={{ scale: 0.8 }}
-                whileInView={{ scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-              >
+            { label: "Trips", value: "12", color: "from-orange-500 to-pink-500" },
+            { label: "Countries", value: "18", color: "from-pink-500 to-rose-500" },
+            { label: "Nights", value: "47", color: "from-amber-500 to-orange-500" },
+            { label: "Saved", value: "₹38k", color: "from-emerald-500 to-teal-500" }
+          ].map((stat, i) => (
+            <div key={i} className={`p-4 rounded-xl border ${dark ? "bg-gray-800/50 border-gray-800" : "bg-gray-50 border-gray-100"}`}>
+              <div className={`text-2xl font-black bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
                 {stat.value}
-              </motion.p>
-              <p className={`text-xs sm:text-sm ${subtextClass} mt-2 group-hover:font-semibold transition-all`}>{stat.label}</p>
-            </motion.div>
+              </div>
+              <div className={`text-xs mt-1 font-medium ${dark ? "text-gray-400" : "text-gray-500"}`}>
+                {stat.label}
+              </div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </motion.div>
 
-      {/* Achievements Section */}
-      <motion.div
-        variants={itemVariants}
-        whileHover={{ boxShadow: "0 25px 50px rgba(0,0,0,0.15)" }}
-        className={`${cardBg} p-6 sm:p-8 rounded-xl border shadow-lg hover:shadow-2xl transition-all`}
-      >
-        <h3 className={`text-lg sm:text-xl font-bold ${textClass} mb-6`}>🏆 Achievements</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {[
-            { emoji: "🌍", title: "World Explorer" },
-            { emoji: "🏔️", title: "Mountain Climber" },
-            { emoji: "🏖️", title: "Beach Lover" },
-            { emoji: "🎒", title: "Budget Traveler" },
-          ].map((achievement, idx) => (
-            <motion.div
-              key={idx}
-              variants={itemVariants}
-              whileHover={{ scale: 1.15, rotate: 5, boxShadow: "0 15px 30px rgba(0,0,0,0.2)" }}
-              className={`${isDarkMode ? "bg-gray-700" : "bg-gray-100"} p-4 rounded-lg text-center cursor-pointer group hover:shadow-lg transition-all`}
-            >
-              <motion.div 
-                className="text-4xl mb-2"
-                animate={{ rotateY: [0, 360] }}
-                transition={{ duration: 2, ease: "linear", repeat: Infinity }}
-              >
-                {achievement.emoji}
-              </motion.div>
-              <p className={`text-xs sm:text-sm font-semibold ${textClass} group-hover:text-orange-500 transition-colors`}>{achievement.title}</p>
+      {/* Badges */}
+      <motion.div {...stagger(1)} className={card}>
+        <div className={`text-sm font-semibold mb-4 ${dark ? "text-white" : "text-gray-800"}`}>🏅 Travel Badges</div>
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+          {BADGES.map((b, i) => (
+            <motion.div key={i} whileHover={{ scale: 1.05, y: -2 }} className="text-center">
+              <div className={`w-12 h-12 rounded-2xl mx-auto mb-2 flex items-center justify-center text-2xl ${dark ? "bg-gray-800" : "bg-gray-50"}`}>{b.icon}</div>
+              <div className={`text-[10px] font-semibold ${dark ? "text-gray-300" : "text-gray-700"}`}>{b.label}</div>
+              <div className={`text-[9px] ${dark ? "text-gray-500" : "text-gray-400"}`}>{b.desc}</div>
             </motion.div>
           ))}
         </div>
       </motion.div>
-    </motion.div>
+
+      {/* Travel preferences */}
+      <motion.div {...stagger(2)} className={card}>
+        <div className={`text-sm font-semibold mb-4 ${dark ? "text-white" : "text-gray-800"}`}>🎯 Travel Preferences</div>
+
+        {/* Budget style */}
+        <div className="mb-4">
+          <div className={`text-xs font-semibold uppercase tracking-wider mb-2 ${dark ? "text-gray-500" : "text-gray-400"}`}>Budget style</div>
+          <div className="flex gap-2">
+            {[["smart", "⚡ Smart value"], ["budget", "💰 Budget"], ["premium", "✨ Luxury"]].map(([k, l]) => (
+              <button key={k} onClick={() => setBudgetStyle(k)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${budgetStyle === k ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white shadow-sm" : dark ? "bg-gray-800 text-gray-400 hover:bg-gray-700" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+                {l}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Travel style tags */}
+        <div className="mb-4">
+          <div className={`text-xs font-semibold uppercase tracking-wider mb-2 ${dark ? "text-gray-500" : "text-gray-400"}`}>Travel interests</div>
+          <div className="flex flex-wrap gap-2">
+            {STYLE_TAGS.map(t => (
+              <button key={t} onClick={() => toggleTag(t)}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${activeTags.includes(t) ? "bg-gradient-to-r from-orange-500 to-pink-500 text-white border-transparent shadow-sm" : dark ? "border-gray-700 text-gray-400 hover:border-gray-600" : "border-gray-200 text-gray-600 hover:border-gray-300"}`}>
+                {t}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Key prefs list */}
+        <Divider className="mb-3" />
+        <div className="space-y-0">
+          {TRAVEL_PREFS.map((p, i) => (
+            <div key={i} className={`flex items-center justify-between py-2.5 ${i < TRAVEL_PREFS.length - 1 ? `border-b ${dark ? "border-gray-800" : "border-gray-100"}` : ""}`}>
+              <span className={`text-xs ${dark ? "text-gray-500" : "text-gray-500"}`}>{p.label}</span>
+              <span className={`text-xs font-semibold ${dark ? "text-gray-300" : "text-gray-700"}`}>{p.value}</span>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* AI & notifications */}
+      <motion.div {...stagger(3)} className={card}>
+        <div className={`text-sm font-semibold mb-4 ${dark ? "text-white" : "text-gray-800"}`}>🤖 AI & Notification Settings</div>
+        <div className="space-y-0">
+          {[
+            { key: "priceAlerts",    label: "Price drop alerts",    sub: "Get notified when saved prices fall" },
+            { key: "tripSuggestions",label: "AI trip suggestions",  sub: "Personalised destination picks" },
+            { key: "groupCollab",    label: "Group collaboration",  sub: "Allow friends to join your trips" },
+            { key: "budgetAlerts",   label: "Smart budget alerts",  sub: "Warn when nearing spend limit" },
+            { key: "emailDigest",    label: "Weekly email digest",  sub: "Summary of deals and updates" },
+            { key: "smsAlerts",      label: "SMS alerts",           sub: "Critical travel notifications via SMS" },
+          ].map((item, i, arr) => (
+            <div key={item.key} className={`flex items-center justify-between py-3.5 ${i < arr.length - 1 ? `border-b ${dark ? "border-gray-800" : "border-gray-100"}` : ""}`}>
+              <div>
+                <div className={`text-sm font-medium ${dark ? "text-gray-200" : "text-gray-800"}`}>{item.label}</div>
+                <div className={`text-xs ${dark ? "text-gray-500" : "text-gray-500"}`}>{item.sub}</div>
+              </div>
+              <Toggle on={settings[item.key as keyof typeof settings]} onChange={() => toggleSetting(item.key as keyof typeof settings)} />
+            </div>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* Danger zone */}
+      <motion.div {...stagger(4)} className={`rounded-2xl border ${dark ? "border-red-500/20 bg-gray-900" : "border-red-200 bg-white"} p-5`}>
+        <div className="text-xs font-semibold uppercase tracking-wider text-red-500 mb-4">Danger zone</div>
+        <div className="flex gap-3">
+          <button className={`flex-1 text-sm font-medium border py-2.5 rounded-xl transition-colors ${dark ? "text-red-400 border-red-500/30 hover:bg-red-500/10" : "text-red-500 border-red-200 hover:bg-red-50"}`}>
+            Clear all data
+          </button>
+          <button className={`flex-1 text-sm font-medium border py-2.5 rounded-xl transition-colors ${dark ? "text-red-500 border-red-500/50 hover:bg-red-500/20" : "text-red-600 border-red-300 hover:bg-red-100"}`}>
+            Delete account
+          </button>
+        </div>
+      </motion.div>
+    </div>
   );
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useDashboard } from "../DashboardContext";
+  import { AppProvider, useApp } from '../../travel/AppContext';
 import { Bell, Lock, Globe, Inbox, Eye, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -37,7 +37,7 @@ const settings = [
 ];
 
 export const SettingsPage = () => {
-  const { isDarkMode } = useDashboard();
+  const { isDarkMode } = useApp();
   const [toggleStates, setToggleStates] = useState<Record<string, boolean>>({});
 
   const handleToggle = (key: string) => {

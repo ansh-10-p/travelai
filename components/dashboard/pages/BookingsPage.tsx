@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useDashboard } from "../DashboardContext";
+  import { AppProvider, useApp } from '../../travel/AppContext';
 
 const stagger = (i: number) => ({
   initial: { opacity: 0, y: 24 },
@@ -141,7 +141,7 @@ function BookingRow({ b, dark, i }: { b: typeof BOOKINGS[0]; dark: boolean; i: n
 }
 
 export const BookingsPage = () => {
-  const { isDarkMode } = useDashboard();
+  const { isDarkMode } = useApp();
   const dark = isDarkMode;
   const [tab, setTab] = useState<BookingTab>("all");
   const card = dark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100";

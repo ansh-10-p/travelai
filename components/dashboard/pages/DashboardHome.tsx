@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useDashboard } from "../DashboardContext";
+ import { AppProvider, useApp } from '../../travel/AppContext';
 import {
   PieChart, Pie, Cell, Tooltip, ResponsiveContainer,
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -687,7 +687,7 @@ function RecentActivity({ dark }: { dark: boolean }) {
 // ROOT EXPORT
 // ══════════════════════════════════════════════════════════════════
 export const DashboardHome = () => {
-  const { isDarkMode } = useDashboard();
+  const { isDarkMode } = useApp();
   const dark = isDarkMode;
 
   return (

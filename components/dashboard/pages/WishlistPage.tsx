@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useDashboard } from "../DashboardContext";
+  import { AppProvider, useApp } from '../../travel/AppContext';
 
 const stagger = (i: number) => ({
   initial: { opacity: 0, y: 24 },
@@ -146,7 +146,7 @@ function WishCard({ item, dark, i }: { item: typeof WISHLIST[0]; dark: boolean; 
 }
 
 export const WishlistPage = () => {
-  const { isDarkMode } = useDashboard();
+  const { isDarkMode } = useApp();
   const dark = isDarkMode;
   const [cat, setCat] = useState<WishCategory>("all");
   const card = dark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100";
