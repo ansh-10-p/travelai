@@ -153,19 +153,8 @@ export const AppLayout = () => {
       {/* ══════════════════════════════ TOP NAVBAR ══════════════════════════════ */}
       <header className={`flex items-center gap-4 px-5 py-3 border-b ${surface} flex-shrink-0 z-20 shadow-sm`}>
 
-        {/* Hamburger Toggle & Logo */}
-        <div className="flex items-center gap-3 w-48">
-          <button 
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className={`p-1.5 rounded-lg transition-colors ${isDarkMode ? "hover:bg-gray-800 text-gray-400" : "hover:bg-gray-100 text-gray-600"}`}
-          >
-            <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-              <line x1="3" y1="12" x2="21" y2="12"></line>
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-          </button>
-
+        {/* App Logo */}
+        <div className="flex items-center gap-3">
           <button onClick={() => setCurrentPage("home")} className="flex items-center gap-2 flex-shrink-0">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-pink-500 flex items-center justify-center text-white text-sm font-bold shadow-md">
               T
@@ -233,56 +222,83 @@ export const AppLayout = () => {
 
         {/* ══ SIDEBAR ══ */}
         <aside 
-          className={`flex-shrink-0 border-r ${surface} overflow-y-auto flex flex-col transition-all duration-300 ease-in-out ${
+          className={`flex-shrink-0 border-r ${surface} flex flex-col transition-all duration-300 ease-in-out ${
             isSidebarOpen ? "w-60" : "w-16"
           }`}
         >
-          <nav className="p-3 flex-1">
-            {SIDEBAR_NAV.map((section, idx) => (
-              <div key={section.title} className={`${idx !== 0 ? "mt-6" : ""} mb-2`}>
-                
-                {/* Section Title (Hidden when collapsed) */}
-                <div className={`text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 transition-opacity duration-200 ${
-                  isDarkMode ? "text-gray-500" : "text-gray-400"
-                } ${isSidebarOpen ? "opacity-100" : "opacity-0 hidden"}`}>
-                  {section.title}
+          <div className="overflow-y-auto flex-1 p-3">
+            <nav>
+              {SIDEBAR_NAV.map((section, idx) => (
+                <div key={section.title} className={`${idx !== 0 ? "mt-6" : ""} mb-2`}>
+                  
+                  {/* Section Title (Hidden when collapsed) */}
+                  <div className={`text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 transition-opacity duration-200 ${
+                    isDarkMode ? "text-gray-500" : "text-gray-400"
+                  } ${isSidebarOpen ? "opacity-100" : "opacity-0 hidden"}`}>
+                    {section.title}
+                  </div>
+
+                  {/* Section Divider (Shown when collapsed) */}
+                  {!isSidebarOpen && idx !== 0 && (
+                    <div className={`h-px w-8 mx-auto mb-4 ${isDarkMode ? "bg-gray-800" : "bg-gray-200"}`} />
+                  )}
+
+                  {section.items.map(item => (
+                    <button
+                      key={item.id}
+                      onClick={() => setCurrentPage(item.id)}
+                      className={sideBtn(currentPage === item.id)}
+                      title={!isSidebarOpen ? item.label : undefined}
+                    >
+                      <div className="flex-shrink-0">
+                        <I d={ICON[item.icon] || ICON.home} />
+                      </div>
+                      
+                      {isSidebarOpen && (
+                        <>
+                          <span className="flex-1 truncate text-left">{item.label}</span>
+                          {item.badge && (
+                            <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-md flex-shrink-0 ${
+                              item.badge === "AI"
+                                ? "bg-gradient-to-r from-orange-400 to-pink-500 text-white"
+                                : "bg-orange-500 text-white"
+                            }`}>
+                              {item.badge}
+                            </span>
+                          )}
+                        </>
+                      )}
+                    </button>
+                  ))}
                 </div>
+              ))}
+            </nav>
+          </div>
 
-                {/* Section Divider (Shown when collapsed) */}
-                {!isSidebarOpen && idx !== 0 && (
-                  <div className={`h-px w-8 mx-auto mb-4 ${isDarkMode ? "bg-gray-800" : "bg-gray-200"}`} />
-                )}
-
-                {section.items.map(item => (
-                  <button
-                    key={item.id}
-                    onClick={() => setCurrentPage(item.id)}
-                    className={sideBtn(currentPage === item.id)}
-                    title={!isSidebarOpen ? item.label : undefined}
-                  >
-                    <div className="flex-shrink-0">
-                      <I d={ICON[item.icon] || ICON.home} />
-                    </div>
-                    
-                    {isSidebarOpen && (
-                      <>
-                        <span className="flex-1 truncate text-left">{item.label}</span>
-                        {item.badge && (
-                          <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-md flex-shrink-0 ${
-                            item.badge === "AI"
-                              ? "bg-gradient-to-r from-orange-400 to-pink-500 text-white"
-                              : "bg-orange-500 text-white"
-                          }`}>
-                            {item.badge}
-                          </span>
-                        )}
-                      </>
-                    )}
-                  </button>
-                ))}
-              </div>
-            ))}
-          </nav>
+          {/* ══ BOTTOM SIDEBAR TOGGLE ══ */}
+          <div className={`p-3 border-t ${isDarkMode ? "border-gray-800" : "border-gray-100"}`}>
+            <button
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className={`w-full flex items-center ${isSidebarOpen ? "justify-between px-3" : "justify-center px-0"} py-2.5 rounded-xl text-sm font-medium transition-all ${
+                isDarkMode ? "text-gray-400 hover:text-white hover:bg-gray-800" : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
+              }`}
+            >
+              {isSidebarOpen && <span>Collapse</span>}
+              <svg 
+                width={18} 
+                height={18} 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth={2.5} 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                className={`transform transition-transform duration-300 ${!isSidebarOpen ? "rotate-180" : ""}`}
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+          </div>
         </aside>
 
         {/* ══ PAGE CONTENT ══ */}
