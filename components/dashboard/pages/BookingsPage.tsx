@@ -14,7 +14,7 @@ type BookingTab = "all" | "flights" | "hotels" | "activities";
 
 const BOOKINGS = [
   {
-    id: 1, type: "flight", icon: "✈️",
+    id: 1, type: "flight", 
     title: "BOM → CDG", sub: "Air India · AI 131 · Non-stop",
     date: "Apr 11, 2025 · 02:15 AM", ref: "AI-8X92K4",
     price: "₹35,600", status: "confirmed", trip: "Paris",
@@ -22,7 +22,7 @@ const BOOKINGS = [
     color: "from-orange-400 to-pink-500",
   },
   {
-    id: 2, type: "hotel", icon: "🏨",
+    id: 2, type: "hotel", 
     title: "Montmartre Studio", sub: "Airbnb · Paris 18th",
     date: "Apr 11–18, 2025 · 7 nights", ref: "ABB-29481",
     price: "₹27,300", status: "confirmed", trip: "Paris",
@@ -30,7 +30,7 @@ const BOOKINGS = [
     color: "from-amber-400 to-orange-500",
   },
   {
-    id: 3, type: "activity", icon: "🎭",
+    id: 3, type: "activity", 
     title: "Louvre Museum — Skip-the-Line", sub: "GetYourGuide",
     date: "Apr 13, 2025 · 10:00 AM", ref: "GYG-774KL",
     price: "₹4,800", status: "confirmed", trip: "Paris",
@@ -38,7 +38,7 @@ const BOOKINGS = [
     color: "from-rose-400 to-pink-600",
   },
   {
-    id: 4, type: "flight", icon: "✈️",
+    id: 4, type: "flight", 
     title: "CDG → BOM", sub: "Air India · AI 142 · Non-stop",
     date: "Apr 18, 2025 · 09:30 PM", ref: "AI-8X92K5",
     price: "Included", status: "confirmed", trip: "Paris",
@@ -46,7 +46,7 @@ const BOOKINGS = [
     color: "from-orange-400 to-pink-500",
   },
   {
-    id: 5, type: "hotel", icon: "🏨",
+    id: 5, type: "hotel", 
     title: "Arashiyama Ryokan", sub: "Booking.com · Kyoto",
     date: "Jun 3–10, 2025 · 7 nights", ref: "BKG-11203",
     price: "₹42,000", status: "pending", trip: "Kyoto",
@@ -54,7 +54,7 @@ const BOOKINGS = [
     color: "from-amber-400 to-orange-500",
   },
   {
-    id: 6, type: "activity", icon: "🍷",
+    id: 6, type: "activity",
     title: "Santorini Wine Tour", sub: "Viator · Oia, Greece",
     date: "Aug 22, 2025 · 05:00 PM", ref: "VTR-990X2",
     price: "₹6,200", status: "pending", trip: "Santorini",
@@ -84,7 +84,7 @@ function BookingRow({ b, dark, i }: { b: typeof BOOKINGS[0]; dark: boolean; i: n
       >
         {/* Icon badge */}
         <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${b.color} flex items-center justify-center text-lg flex-shrink-0`}>
-          {b.icon}
+          
         </div>
 
         <div className="flex-1 min-w-0">
@@ -195,7 +195,7 @@ export const BookingsPage = () => {
                 : dark ? "bg-gray-800 text-gray-400 hover:bg-gray-700" : "bg-gray-100 text-gray-500 hover:bg-gray-200"
             }`}
           >
-            {t === "all" ? "✈️🏨🎭 All" : t === "flights" ? "✈️ Flights" : t === "hotels" ? "🏨 Hotels" : "🎭 Activities"}
+            {t === "all" ? "All" : t === "flights" ? "Flights" : t === "hotels" ? "Hotels" : "Activities"}
           </button>
         ))}
       </motion.div>

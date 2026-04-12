@@ -6,7 +6,7 @@ import { HomeBadge } from '@/components/ui/HomeBadge'
 import { Beam } from '@/components/ui/Beam'
 import { PremiumCard } from '@/components/ui/PremiumCard'
 
-export function HeroSection() {
+export function HeroSection({ onGetStarted }: { onGetStarted?: () => void }) {
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -176,6 +176,7 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.3 }}
         >
           <motion.button
+            onClick={onGetStarted}
             whileHover={{
               scale: 1.05,
               boxShadow: '0 20px 40px rgba(255, 125, 92, 0.2)',

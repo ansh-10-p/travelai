@@ -12,7 +12,7 @@ interface PricingPlan {
   icon?: string
 }
 
-export function PricingSection() {
+export function PricingSection({ onGetStarted }: { onGetStarted?: () => void }) {
   const plans: PricingPlan[] = [
     {
       name: 'Explorer',
@@ -184,6 +184,7 @@ export function PricingSection() {
 
                 {/* CTA Button */}
                 <motion.button
+                  onClick={onGetStarted}
                   whileHover={{
                     scale: 1.05,
                   }}

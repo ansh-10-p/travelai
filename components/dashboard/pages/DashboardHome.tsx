@@ -35,9 +35,9 @@ type Plan = "smart" | "budget" | "premium";
 
 // ─── Static Data ──────────────────────────────────────────────────────────────
 const TRIPS = [
-  { id: 1, city: "Paris",     country: "France", dates: "Apr 11 – Apr 18", daysLeft: 12,  emoji: "🗼", bg: "from-rose-900 to-orange-800", image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80", status: "upcoming" },
-  { id: 2, city: "Kyoto",     country: "Japan",  dates: "Jun 3 – Jun 10",  daysLeft: 65,  emoji: "⛩️", bg: "from-pink-900 to-violet-800", image: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&q=80", status: "planning" },
-  { id: 3, city: "Santorini", country: "Greece", dates: "Aug 20 – Aug 28", daysLeft: 143, emoji: "🏛️", bg: "from-sky-900 to-blue-800",   image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", status: "wishlist" },
+  { id: 1, city: "Paris",     country: "France", dates: "Apr 11 – Apr 18", daysLeft: 12,  emoji: "tower", bg: "from-rose-900 to-orange-800", image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80", status: "upcoming" },
+  { id: 2, city: "Kyoto",     country: "Japan",  dates: "Jun 3 – Jun 10",  daysLeft: 65,  emoji: "temple", bg: "from-pink-900 to-violet-800", image: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&q=80", status: "planning" },
+  { id: 3, city: "Santorini", country: "Greece", dates: "Aug 20 – Aug 28", daysLeft: 143, emoji: "landmark", bg: "from-sky-900 to-blue-800",   image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", status: "wishlist" },
 ];
 
 const NEXT_ACTIONS = [
@@ -47,9 +47,9 @@ const NEXT_ACTIONS = [
 ];
 
 const AI_SUGGESTIONS = [
-  { dest: "Bali",      emoji: "🌴", reason: "You loved Southeast Asia last year", match: 94, img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400&q=80" },
-  { dest: "Amalfi",    emoji: "🍋", reason: "Similar to your Santorini wishlist", match: 87, img: "https://images.unsplash.com/photo-1612698093158-e07ac200d44e?w=400&q=80" },
-  { dest: "Reykjavík", emoji: "🌌", reason: "Northern lights season incoming",    match: 79, img: "https://images.unsplash.com/photo-1474690870753-1b92efa1f2d8?w=400&q=80" },
+  { dest: "Bali",      emoji: "palm", reason: "You loved Southeast Asia last year", match: 94, img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400&q=80" },
+  { dest: "Amalfi",    emoji: "lemon", reason: "Similar to your Santorini wishlist", match: 87, img: "https://images.unsplash.com/photo-1612698093158-e07ac200d44e?w=400&q=80" },
+  { dest: "Reykjavík", emoji: "stars", reason: "Northern lights season incoming",    match: 79, img: "https://images.unsplash.com/photo-1474690870753-1b92efa1f2d8?w=400&q=80" },
 ];
 
 const ACTIVITY = [
@@ -83,7 +83,7 @@ const HOTEL_OPTIONS = [
 
 const PLANS = {
   smart: {
-    label: "Smart Plan", emoji: "⚡",
+    label: "Smart Plan", emoji: "lightning",
     total: 72500, savings: 7500,
     flight: FLIGHT_OPTIONS[1], hotel: HOTEL_OPTIONS[1],
     food: 12000, activities: 9800,
@@ -91,7 +91,7 @@ const PLANS = {
     color: "from-orange-500 to-pink-500",
   },
   budget: {
-    label: "Budget Plan", emoji: "💰",
+    label: "Budget Plan", emoji: "wallet",
     total: 58400, savings: 21600,
     flight: FLIGHT_OPTIONS[0], hotel: HOTEL_OPTIONS[0],
     food: 9000, activities: 6000,
@@ -99,7 +99,7 @@ const PLANS = {
     color: "from-emerald-500 to-teal-500",
   },
   premium: {
-    label: "Premium Plan", emoji: "✨",
+    label: "Premium Plan", emoji: "sparkle",
     total: 88900, savings: -8900,
     flight: FLIGHT_OPTIONS[2], hotel: HOTEL_OPTIONS[2],
     food: 18000, activities: 14000,
@@ -109,10 +109,10 @@ const PLANS = {
 };
 
 const AI_TIPS = [
-  { icon: "📅", tip: "Shift dates to Apr 14–21",       savings: "Save ₹5,000", reason: "Lower demand midweek",                     actionable: true  },
-  { icon: "🏠", tip: "IndiGo → Air India upgrade",     savings: "₹3,600 more", reason: "Direct flight saves 45 mins + bags incl.", actionable: false },
-  { icon: "🍽️", tip: "Eat near Bastille, not Marais", savings: "Save ₹2,200", reason: "Same cuisine, 40% lower prices",            actionable: true  },
-  { icon: "🎟️", tip: "Museum Pass over single entry", savings: "Save ₹1,800", reason: "Covers Louvre + Orsay + Versailles",        actionable: true  },
+  { icon: "calendar", tip: "Shift dates to Apr 14–21",       savings: "Save ₹5,000", reason: "Lower demand midweek",                     actionable: true  },
+  { icon: "home", tip: "IndiGo → Air India upgrade",     savings: "₹3,600 more", reason: "Direct flight saves 45 mins + bags incl.", actionable: false },
+  { icon: "utensils", tip: "Eat near Bastille, not Marais", savings: "Save ₹2,200", reason: "Same cuisine, 40% lower prices",            actionable: true  },
+  { icon: "ticket", tip: "Museum Pass over single entry", savings: "Save ₹1,800", reason: "Covers Louvre + Orsay + Versailles",        actionable: true  },
 ];
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -159,39 +159,40 @@ function AnimatedNumber({ value }: { value: number }) {
 // ══════════════════════════════════════════════════════════════════
 function HeroSection({ dark }: { dark: boolean }) {
   return (
-    <motion.div {...stagger(0)} className="relative overflow-hidden rounded-3xl mb-6">
+    <motion.div {...stagger(0)} className="relative overflow-hidden rounded-3xl mb-8 shadow-md">
       <div className="absolute inset-0">
         <img src={TRIPS[0].image} alt="Paris" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-gray-950/90 via-gray-950/70 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-950/80 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-950/85 via-transparent to-transparent" />
       </div>
-      <div className="absolute top-5 right-5 flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 text-white text-sm font-medium">
-        <span>Paris</span><span className="w-px h-4 bg-white/30" /><span>14°C ☁️</span>
+      <div className="absolute top-5 right-5 flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 text-white text-sm font-medium hover:bg-white/20 transition-colors">
+        <span>Paris</span><span className="w-px h-4 bg-white/30" /><span>14°C cloud</span>
       </div>
-      <div className="relative z-10 p-8 md:p-10">
-        <span className="text-orange-300 text-sm font-semibold tracking-widest uppercase">Good morning</span>
-        <h1 className="text-4xl md:text-5xl font-bold text-white mt-1 mb-1 tracking-tight">
-          Welcome back, Sneha <span className="inline-block animate-pulse">✨</span>
+      <div className="relative z-10 p-8 md:p-12">
+        <span className="text-orange-300 text-xs font-semibold tracking-widest uppercase">Good morning</span>
+        <h1 className="text-4xl md:text-5xl font-bold text-white mt-2 mb-2 tracking-tight">
+          Welcome back, Sneha <span className="inline-block animate-pulse">sparkle</span>
         </h1>
-        <p className="text-white/60 text-lg mb-6">Your Paris adventure is almost here.</p>
-        <div className="flex items-center gap-6 mb-8">
+        <p className="text-white/70 text-lg mb-8 max-w-lg">Your Paris adventure is almost here.</p>
+        <div className="flex items-center gap-8 mb-10">
           {["12", "04", "30"].map((val, i) => (
             <div key={i} className="text-center">
-              <div className="text-3xl font-bold text-white tabular-nums">{val}</div>
-              <div className="text-xs text-white/40 uppercase tracking-wider">{["Days", "Hours", "Mins"][i]}</div>
+              <div className="text-4xl font-bold text-white tabular-nums">{val}</div>
+              <div className="text-xs text-white/50 uppercase tracking-wider font-medium">{["Days", "Hours", "Mins"][i]}</div>
             </div>
           ))}
-          <div className="flex-1 h-px bg-gradient-to-r from-white/20 to-transparent ml-2" />
+          <div className="flex-1 h-px bg-gradient-to-r from-white/20 to-transparent ml-4" />
           <div className="text-right">
-            <div className="text-white/80 text-sm">Apr 11 – Apr 18</div>
-            <div className="text-white/40 text-xs">Paris, France 🗼</div>
+            <div className="text-white/90 text-sm font-medium">Apr 11 – Apr 18</div>
+            <div className="text-white/50 text-xs mt-1">Paris, France tower</div>
           </div>
         </div>
         <motion.button
-          whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-          className="flex items-center gap-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white font-semibold px-6 py-3 rounded-2xl shadow-lg shadow-orange-500/30 text-sm"
+          whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(249, 115, 22, 0.4)" }} 
+          whileTap={{ scale: 0.95 }}
+          className="flex items-center gap-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white font-semibold px-7 py-3.5 rounded-2xl shadow-lg shadow-orange-500/40 text-sm transition-all hover:opacity-95"
         >
-          <Icon d={icons.plane} size={16} />Continue Planning<Icon d={icons.arrow} size={16} />
+          <Icon d={icons.plane} size={18} />Continue Planning<Icon d={icons.arrow} size={16} />
         </motion.button>
       </div>
     </motion.div>
@@ -204,24 +205,29 @@ function HeroSection({ dark }: { dark: boolean }) {
 function NextActions({ dark }: { dark: boolean }) {
   const card = dark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100";
   return (
-    <motion.section {...stagger(1)} className="mb-6">
-      <h2 className={`text-xs uppercase tracking-widest font-semibold mb-3 ${dark ? "text-gray-500" : "text-gray-400"}`}>Next Steps for Paris</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+    <motion.section {...stagger(1)} className="mb-8">
+      <h2 className={`text-xs uppercase tracking-widest font-semibold mb-4 ${dark ? "text-gray-500" : "text-gray-400"}`}>Next Steps for Paris</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {NEXT_ACTIONS.map((a, i) => (
-          <motion.div key={a.id} whileHover={{ y: -3, scale: 1.01 }} className={`border ${card} rounded-2xl p-4 cursor-pointer transition-shadow hover:shadow-lg`}>
-            <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${a.color} flex items-center justify-center mb-3`}>
-              <Icon d={icons[a.icon as keyof typeof icons]} size={16} className="text-white" />
+          <motion.div 
+            key={a.id} 
+            whileHover={{ y: -4, scale: 1.02 }} 
+            className={`border ${card} rounded-2xl p-5 cursor-pointer transition-all hover:shadow-lg`}
+          >
+            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${a.color} flex items-center justify-center mb-4`}>
+              <Icon d={icons[a.icon as keyof typeof icons]} size={18} className="text-white" />
             </div>
-            <div className={`font-semibold text-sm mb-0.5 ${dark ? "text-white" : "text-gray-800"}`}>{a.label}</div>
-            <div className={`text-xs mb-3 ${dark ? "text-gray-500" : "text-gray-400"}`}>{a.sub}</div>
-            <div className={`h-1 rounded-full mb-3 ${dark ? "bg-gray-800" : "bg-gray-100"}`}>
+            <div className={`font-semibold text-sm mb-1 ${dark ? "text-white" : "text-gray-900"}`}>{a.label}</div>
+            <div className={`text-xs mb-4 ${dark ? "text-gray-500" : "text-gray-500"}`}>{a.sub}</div>
+            <div className={`h-1.5 rounded-full mb-3 ${dark ? "bg-gray-800" : "bg-gray-200"} overflow-hidden`}>
               <motion.div
-                initial={{ width: 0 }} animate={{ width: `${a.progress}%` }}
+                initial={{ width: 0 }} 
+                animate={{ width: `${a.progress}%` }}
                 transition={{ delay: 0.4 + i * 0.1, duration: 0.8, ease: "easeOut" }}
                 className={`h-full rounded-full bg-gradient-to-r ${a.color}`}
               />
             </div>
-            <div className={`text-xs font-semibold bg-gradient-to-r ${a.color} bg-clip-text text-transparent`}>{a.cta} →</div>
+            <div className={`text-sm font-semibold bg-gradient-to-r ${a.color} bg-clip-text text-transparent cursor-pointer hover:opacity-80`}>{a.cta} →</div>
           </motion.div>
         ))}
       </div>
@@ -579,29 +585,33 @@ function BudgetOptimizerSection({ dark }: { dark: boolean }) {
 // ══════════════════════════════════════════════════════════════════
 function UpcomingTrips({ dark }: { dark: boolean }) {
   return (
-    <motion.section {...stagger(3)} className="mb-6">
-      <div className="flex items-center justify-between mb-3">
+    <motion.section {...stagger(3)} className="mb-8">
+      <div className="flex items-center justify-between mb-4">
         <h2 className={`text-xs uppercase tracking-widest font-semibold ${dark ? "text-gray-500" : "text-gray-400"}`}>Your Trips</h2>
         <button className="text-xs text-orange-400 font-semibold hover:text-orange-300 transition-colors">See all →</button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {TRIPS.map(trip => (
-          <motion.div key={trip.id} whileHover={{ scale: 1.02 }} className="relative overflow-hidden rounded-2xl cursor-pointer group h-48">
-            <img src={trip.image} alt={trip.city} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-            <div className={`absolute inset-0 bg-gradient-to-t ${trip.bg}/60 via-transparent to-transparent`} />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+          <motion.div 
+            key={trip.id} 
+            whileHover={{ scale: 1.04, y: -6 }} 
+            className="relative overflow-hidden rounded-2xl cursor-pointer group h-52 shadow-md hover:shadow-xl transition-shadow"
+          >
+            <img src={trip.image} alt={trip.city} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-120" />
+            <div className={`absolute inset-0 bg-gradient-to-t ${trip.bg}/70 via-black/20 to-transparent`} />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
             <div className="absolute top-3 right-3">
-              <span className={`text-xs font-semibold px-2 py-1 rounded-full backdrop-blur-sm border ${
-                trip.status === "upcoming" ? "bg-orange-500/80 border-orange-400/30 text-white" :
-                trip.status === "planning" ? "bg-white/20 border-white/30 text-white" :
-                "bg-white/10 border-white/20 text-white/80"
+              <span className={`text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-md border transition-all ${
+                trip.status === "upcoming" ? "bg-orange-500/90 border-orange-400/50 text-white shadow-lg shadow-orange-500/30" :
+                trip.status === "planning" ? "bg-white/20 border-white/40 text-white" :
+                "bg-white/10 border-white/30 text-white/90"
               }`}>
                 {trip.status === "upcoming" ? `${trip.daysLeft}d away` : trip.status}
               </span>
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-4">
+            <div className="absolute bottom-0 left-0 right-0 p-5">
               <div className="text-white font-bold text-lg leading-tight">{trip.emoji} {trip.city}</div>
-              <div className="text-white/60 text-xs">{trip.country} · {trip.dates}</div>
+              <div className="text-white/70 text-xs mt-1">{trip.country} · {trip.dates}</div>
             </div>
           </motion.div>
         ))}
@@ -615,20 +625,24 @@ function UpcomingTrips({ dark }: { dark: boolean }) {
 // ══════════════════════════════════════════════════════════════════
 function AISuggestions({ dark }: { dark: boolean }) {
   return (
-    <motion.section {...stagger(4)} className="mb-6">
-      <div className="flex items-center gap-2 mb-3">
+    <motion.section {...stagger(4)} className="mb-8">
+      <div className="flex items-center gap-2 mb-4">
         <h2 className={`text-xs uppercase tracking-widest font-semibold ${dark ? "text-gray-500" : "text-gray-400"}`}>Curated for You</h2>
-        <span className="text-[10px] bg-gradient-to-r from-orange-400 to-pink-500 text-white font-bold px-2 py-0.5 rounded-full">AI ✦</span>
+        <span className="text-[10px] bg-gradient-to-r from-orange-400 to-pink-500 text-white font-bold px-2 py-0.5 rounded-full">AI✦</span>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {AI_SUGGESTIONS.map((s, i) => (
-          <motion.div key={i} whileHover={{ y: -3 }} className="relative overflow-hidden rounded-2xl cursor-pointer group h-40">
+          <motion.div 
+            key={i} 
+            whileHover={{ y: -6, scale: 1.02 }} 
+            className="relative overflow-hidden rounded-2xl cursor-pointer group h-44 shadow-sm hover:shadow-xl transition-shadow"
+          >
             <img src={s.img} alt={s.dest} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            <div className="absolute top-3 right-3 text-xs font-bold text-white bg-gradient-to-r from-orange-500 to-pink-500 px-2 py-1 rounded-full">{s.match}% match</div>
-            <div className="absolute bottom-0 left-0 right-0 p-4">
-              <div className="text-white font-bold">{s.emoji} {s.dest}</div>
-              <div className="text-white/60 text-xs">{s.reason}</div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+            <div className="absolute top-3 right-3 text-xs font-bold text-white bg-gradient-to-r from-orange-500 to-pink-500 px-2.5 py-1 rounded-full">{s.match}% match</div>
+            <div className="absolute bottom-0 left-0 right-0 p-5">
+              <div className="text-white font-bold text-lg">{s.emoji} {s.dest}</div>
+              <div className="text-white/70 text-xs mt-1">{s.reason}</div>
             </div>
           </motion.div>
         ))}
@@ -644,13 +658,21 @@ function InsightsSection({ dark }: { dark: boolean }) {
   const card = dark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100";
   return (
     <motion.section {...stagger(5)} className="mb-6">
-      <h2 className={`text-xs uppercase tracking-widest font-semibold mb-3 ${dark ? "text-gray-500" : "text-gray-400"}`}>Your Travel Story</h2>
-      <div className="grid grid-cols-2 gap-3">
+      <h2 className={`text-xs uppercase tracking-widest font-semibold mb-4 ${dark ? "text-gray-500" : "text-gray-400"}`}>Your Travel Story</h2>
+      <div className="grid grid-cols-4 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {INSIGHTS.map((ins, i) => (
-          <motion.div key={i} whileHover={{ y: -2 }} className={`border ${card} rounded-2xl p-4`}>
-            <div className="text-3xl font-bold bg-gradient-to-br from-orange-400 to-pink-500 bg-clip-text text-transparent mb-1">{ins.value}</div>
-            <div className={`text-xs font-medium mb-0.5 ${dark ? "text-gray-300" : "text-gray-700"}`}>{ins.label}</div>
-            <div className={`text-xs ${dark ? "text-gray-600" : "text-gray-400"}`}>{ins.sub}</div>
+          <motion.div 
+            key={i} 
+            whileHover={{ y: -4, scale: 1.02 }} 
+            className={`border ${card} rounded-2xl p-6 backdrop-blur-sm transition-all hover:shadow-lg`}
+          >
+            <div className="flex flex-col gap-3">
+              <div className="text-4xl font-bold bg-gradient-to-br from-orange-400 to-pink-500 bg-clip-text text-transparent">{ins.value}</div>
+              <div>
+                <div className={`text-sm font-semibold mb-1 ${dark ? "text-gray-100" : "text-gray-900"}`}>{ins.label}</div>
+                <div className={`text-xs ${dark ? "text-gray-500" : "text-gray-500"}`}>{ins.sub}</div>
+              </div>
+            </div>
           </motion.div>
         ))}
       </div>
@@ -663,19 +685,23 @@ function InsightsSection({ dark }: { dark: boolean }) {
 // ══════════════════════════════════════════════════════════════════
 function RecentActivity({ dark }: { dark: boolean }) {
   const card = dark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100";
+  const rowHover = dark ? "hover:bg-gray-800/50" : "hover:bg-gray-50/80";
   return (
     <motion.section {...stagger(6)}>
-      <h2 className={`text-xs uppercase tracking-widest font-semibold mb-3 ${dark ? "text-gray-500" : "text-gray-400"}`}>Recent Activity</h2>
-      <div className={`border ${card} rounded-2xl overflow-hidden`}>
+      <h2 className={`text-xs uppercase tracking-widest font-semibold mb-4 ${dark ? "text-gray-500" : "text-gray-400"}`}>Recent Activity</h2>
+      <div className={`border ${card} rounded-2xl overflow-hidden shadow-sm`}>
         {ACTIVITY.map((a, i) => (
-          <div key={i} className={`flex items-center gap-4 px-5 py-4 ${i < ACTIVITY.length - 1 ? `border-b ${dark ? "border-gray-800" : "border-gray-50"}` : ""}`}>
-            <div className={`w-8 h-8 rounded-full ${a.color} flex items-center justify-center flex-shrink-0`}>
-              <Icon d={icons[a.icon as keyof typeof icons]} size={14} className="text-white" />
+          <div 
+            key={i} 
+            className={`flex items-center gap-4 px-6 py-4 transition-colors ${rowHover} ${i < ACTIVITY.length - 1 ? `border-b ${dark ? "border-gray-800" : "border-gray-100"}` : ""}`}
+          >
+            <div className={`w-10 h-10 rounded-full ${a.color} flex items-center justify-center flex-shrink-0`}>
+              <Icon d={icons[a.icon as keyof typeof icons]} size={16} className="text-white" />
             </div>
             <div className="flex-1 min-w-0">
-              <div className={`text-sm font-medium truncate ${dark ? "text-gray-200" : "text-gray-700"}`}>{a.text}</div>
+              <div className={`text-sm font-medium truncate ${dark ? "text-gray-200" : "text-gray-900"}`}>{a.text}</div>
             </div>
-            <div className={`text-xs flex-shrink-0 ${dark ? "text-gray-600" : "text-gray-400"}`}>{a.time}</div>
+            <div className={`text-xs flex-shrink-0 font-medium ${dark ? "text-gray-500" : "text-gray-500"}`}>{a.time}</div>
           </div>
         ))}
       </div>
@@ -691,19 +717,19 @@ export const DashboardHome = () => {
   const dark = isDarkMode;
 
   return (
-    <div className={`max-w-5xl mx-auto ${dark ? "text-white" : "text-gray-900"}`}>
-      {/* Full-width rows */}
+    <div className={`max-w-6xl mx-auto px-4 py-6 ${dark ? "text-white" : "text-gray-900"}`}>
+      {/* Full-width sections */}
       <HeroSection dark={dark} />
       <NextActions dark={dark} />
       <BudgetOptimizerSection dark={dark} />
 
-      {/* 2/3 + 1/3 sidebar */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        <div className="lg:col-span-2">
+      {/* 2/3 + 1/3 sidebar layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2 space-y-8">
           <UpcomingTrips dark={dark} />
           <AISuggestions dark={dark} />
         </div>
-        <div>
+        <div className="space-y-8">
           <InsightsSection dark={dark} />
           <RecentActivity dark={dark} />
         </div>

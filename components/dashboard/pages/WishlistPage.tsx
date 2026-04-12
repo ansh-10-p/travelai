@@ -14,35 +14,35 @@ type WishCategory = "all" | "destinations" | "hotels" | "activities" | "restaura
 
 const WISHLIST = [
   {
-    id: 1, category: "destinations", emoji: "🌴",
+    id: 1, category: "destinations", emoji: "palm",
     title: "Bali, Indonesia", sub: "Southeast Asia · Best Nov–Mar",
     image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80",
     match: 94, budget: "₹65,000", note: "Loved by similar travellers", saved: "3 days ago",
     tags: ["Beach", "Culture", "Yoga"],
   },
   {
-    id: 2, category: "destinations", emoji: "🍋",
+    id: 2, category: "destinations", emoji: "lemon",
     title: "Amalfi Coast, Italy", sub: "Southern Europe · Best May–Oct",
     image: "https://images.unsplash.com/photo-1612698093158-e07ac200d44e?w=600&q=80",
     match: 87, budget: "₹95,000", note: "Similar to Santorini wishlist", saved: "1 week ago",
     tags: ["Scenic", "Food", "Coastline"],
   },
   {
-    id: 3, category: "destinations", emoji: "🌌",
+    id: 3, category: "destinations", emoji: "stars",
     title: "Reykjavík, Iceland", sub: "Northern Europe · Best Sep–Mar",
     image: "https://images.unsplash.com/photo-1474690870753-1b92efa1f2d8?w=600&q=80",
     match: 79, budget: "₹1,20,000", note: "Northern lights season", saved: "2 weeks ago",
     tags: ["Northern Lights", "Adventure", "Nature"],
   },
   {
-    id: 4, category: "hotels", emoji: "🏨",
+    id: 4, category: "hotels", emoji: "home",
     title: "Le Meurice, Paris", sub: "1st Arrondissement · 5-star Palace",
     image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80",
     match: 91, budget: "₹18,000/night", note: "Overlooking Tuileries Garden", saved: "5 days ago",
     tags: ["Luxury", "Central", "Michelin"],
   },
   {
-    id: 5, category: "hotels", emoji: "⛺",
+    id: 5, category: "hotels", emoji: "tent",
     title: "Overwater Villa, Maldives", sub: "Velaa Private Island · All-inclusive",
     image: "https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=600&q=80",
     match: 88, budget: "₹45,000/night", note: "Dream honeymoon stay", saved: "1 month ago",

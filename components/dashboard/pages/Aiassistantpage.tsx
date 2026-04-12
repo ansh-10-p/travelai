@@ -53,7 +53,7 @@ export const AIAssistantPage = () => {
   const { isDarkMode } = useApp();
   const dark = isDarkMode;
   const [msgs, setMsgs] = useState<Msg[]>([
-    { from: "ai", text: "Hi Sneha! I'm your TravelAI assistant. I know your Paris trip inside out — flights, hotel, budget, itinerary. Ask me anything! ✈️", time: "Just now" },
+    { from: "ai", text: "Hi Sneha! I'm your TravelAI assistant. I know your Paris trip inside out — flights, hotel, budget, itinerary. Ask me anything!", time: "Just now" },
   ]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
@@ -78,11 +78,11 @@ export const AIAssistantPage = () => {
 
   return (
     <div>
-      <SectionHeader title="AI Assistant 🤖" sub="Your 24/7 Paris trip companion — ask anything" />
+      <SectionHeader title="AI Assistant" sub="Your 24/7 Paris trip companion — ask anything" />
 
       {/* Context banner */}
       <motion.div {...stagger(0)} className={`flex items-center gap-3 mb-5 px-4 py-3 rounded-2xl border text-sm ${dark ? "bg-orange-500/5 border-orange-500/15" : "bg-orange-50 border-orange-100"}`}>
-        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center text-white text-base">🤖</div>
+        <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center text-white text-base">AI</div>
         <div>
           <div className="font-semibold text-gray-800 dark:text-white text-sm">Context loaded: Paris trip (Apr 11–18)</div>
           <div className="text-xs text-gray-400 dark:text-gray-500">Booking TAI-2025-PRS · Air India AI 131 · Montmartre Airbnb · ₹80k budget</div>

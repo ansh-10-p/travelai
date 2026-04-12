@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 
-export function CTASection() {
+export function CTASection({ onGetStarted }: { onGetStarted?: () => void }) {
   return (
     <section className="py-20 sm:py-32 relative overflow-hidden bg-gradient-to-b from-cream to-off-white">
       {/* Animated background */}
@@ -67,6 +67,7 @@ export function CTASection() {
           </motion.p>
 
           <motion.button
+            onClick={onGetStarted}
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}

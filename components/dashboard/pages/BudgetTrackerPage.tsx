@@ -12,18 +12,18 @@ const OVERALL_BUDGET = 80000;
 const TOTAL_SPENT = 54250;
 
 const CATEGORIES = [
-  { id: "flights", name: "Flights", icon: "✈️", spent: 17800, allocated: 20000, color: "#f97316" }, // Orange
-  { id: "hotels", name: "Hotels", icon: "🏨", spent: 23400, allocated: 30000, color: "#ec4899" }, // Pink
-  { id: "food", name: "Food & Dining", icon: "🍽️", spent: 8500, allocated: 15000, color: "#8b5cf6" }, // Violet
-  { id: "activities", name: "Activities", icon: "🎭", spent: 3200, allocated: 10000, color: "#06b6d4" }, // Cyan
-  { id: "misc", name: "Transport & Misc", icon: "🚕", spent: 1350, allocated: 5000, color: "#10b981" }, // Emerald
+  { id: "flights", name: "Flights", icon: "plane", spent: 17800, allocated: 20000, color: "#f97316" }, // Orange
+  { id: "hotels", name: "Hotels", icon: "home", spent: 23400, allocated: 30000, color: "#ec4899" }, // Pink
+  { id: "food", name: "Food & Dining", icon: "utensils", spent: 8500, allocated: 15000, color: "#8b5cf6" }, // Violet
+  { id: "activities", name: "Activities", icon: "star", spent: 3200, allocated: 10000, color: "#06b6d4" }, // Cyan
+  { id: "misc", name: "Transport & Misc", icon: "car", spent: 1350, allocated: 5000, color: "#10b981" }, // Emerald
 ];
 
 const RECENT_TRANSACTIONS = [
-  { id: 1, name: "Uber to Louvre", category: "Transport & Misc", amount: 850, date: "Today, 10:30 AM", icon: "🚕" },
-  { id: 2, name: "Le Relais de la Butte", category: "Food & Dining", amount: 4200, date: "Yesterday, 8:15 PM", icon: "🍽️" },
-  { id: 3, name: "Louvre Museum Tickets", category: "Activities", amount: 3200, date: "Yesterday, 2:00 PM", icon: "🎭" },
-  { id: 4, name: "Croissants & Coffee", category: "Food & Dining", amount: 650, date: "Yesterday, 9:00 AM", icon: "☕" },
+  { id: 1, name: "Uber to Louvre", category: "Transport & Misc", amount: 850, date: "Today, 10:30 AM", icon: "car" },
+  { id: 2, name: "Le Relais de la Butte", category: "Food & Dining", amount: 4200, date: "Yesterday, 8:15 PM", icon: "utensils" },
+  { id: 3, name: "Louvre Museum Tickets", category: "Activities", amount: 3200, date: "Yesterday, 2:00 PM", icon: "star" },
+  { id: 4, name: "Croissants & Coffee", category: "Food & Dining", amount: 650, date: "Yesterday, 9:00 AM", icon: "coffee" },
 ];
 
 // ─── Micro Components ─────────────────────────────────────────────────────────
@@ -51,7 +51,7 @@ function BudgetOverview({ dark }: { dark: boolean }) {
         {/* Text Stats */}
         <div className="flex-1 w-full">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-2xl">💰</span>
+            <span className="text-2xl">₹</span>
             <h1 className={`text-xl font-bold ${dark ? "text-white" : "text-gray-900"}`}>Paris Trip Budget</h1>
           </div>
           <p className={`text-sm mb-6 ${dark ? "text-gray-400" : "text-gray-500"}`}>

@@ -6,12 +6,12 @@ import { AppProvider, useApp } from '../../travel/AppContext';
 import { Card, HeroBanner, BtnPrimary, SectionHeader, stagger, GRAD_TEXT } from "../../ui/ui";
 
 const POPULAR = [
-  { city: "Paris",     country: "France",    emoji: "🗼", from: "₹58,400",  img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80", match: 94 },
-  { city: "Kyoto",     country: "Japan",     emoji: "⛩️", from: "₹72,000",  img: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&q=80",  match: 87 },
-  { city: "Bali",      country: "Indonesia", emoji: "🌴", from: "₹48,000",  img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80", match: 91 },
-  { city: "Santorini", country: "Greece",    emoji: "🏛️", from: "₹95,000", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", match: 79 },
-  { city: "Amalfi",    country: "Italy",     emoji: "🍋", from: "₹88,000",  img: "https://images.unsplash.com/photo-1612698093158-e07ac200d44e?w=600&q=80", match: 83 },
-  { city: "Reykjavík", country: "Iceland",   emoji: "🌌", from: "₹1,10,000",img: "https://images.unsplash.com/photo-1474690870753-1b92efa1f2d8?w=600&q=80", match: 76 },
+  { city: "Paris",     country: "France",    emoji: "tower", from: "₹58,400",  img: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80", match: 94 },
+  { city: "Kyoto",     country: "Japan",     emoji: "temple", from: "₹72,000",  img: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600&q=80",  match: 87 },
+  { city: "Bali",      country: "Indonesia", emoji: "palm", from: "₹48,000",  img: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80", match: 91 },
+  { city: "Santorini", country: "Greece",    emoji: "landmark", from: "₹95,000", img: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80", match: 79 },
+  { city: "Amalfi",    country: "Italy",     emoji: "lemon", from: "₹88,000",  img: "https://images.unsplash.com/photo-1612698093158-e07ac200d44e?w=600&q=80", match: 83 },
+  { city: "Reykjavík", country: "Iceland",   emoji: "stars", from: "₹1,10,000",img: "https://images.unsplash.com/photo-1474690870753-1b92efa1f2d8?w=600&q=80", match: 76 },
 ];
 
 const FLEX_PILLS = ["Non-stop preferred", "Free cancellation", "Airbnb OK", "Vegetarian meals", "Flexible ±3 days", "Include activities"];
@@ -29,7 +29,7 @@ export const SearchPage = () => {
 
   return (
     <div>
-      <SectionHeader title="Where to next? ✈️" sub="Tell us your dream — AI will handle the rest" />
+      <SectionHeader title="Where to next?" sub="Tell us your dream — AI will handle the rest" />
 
       {/* Hero */}
       <motion.div {...stagger(0)} className="mb-6">

@@ -12,14 +12,14 @@ type Msg = {
 };
 
 const INIT_MSGS: Msg[] = [
-  { id: 1, from: "priya", text: "Hey everyone! Paris trip is getting close 🎉", time: "10:10 AM" },
+  { id: 1, from: "priya", text: "Hey everyone! Paris trip is getting close", time: "10:10 AM" },
   { id: 2, from: "rohan", text: "So pumped! Did we book the Louvre yet?", time: "10:12 AM" },
-  { id: 3, from: "sneha", text: "Yes! Got skip-the-line tickets via GetYourGuide 🙌 Day 2 at 10 AM", time: "10:14 AM" },
+  { id: 3, from: "sneha", text: "Yes! Got skip-the-line tickets via GetYourGuide Day 2 at 10 AM", time: "10:14 AM" },
   {
     id: 4, from: "ai", text: "I have a suggestion for the group:", time: "10:15 AM",
-    card: { title: "🎭 Add: Moulin Rouge dinner show?", body: "Apr 14 (Day 4) · ₹8,500/person · Includes 3-course dinner. Great addition to evening itinerary.", yes: 1, no: 0 },
+    card: { title: "Add: Moulin Rouge dinner show?", body: "Apr 14 (Day 4) · ₹8,500/person · Includes 3-course dinner. Great addition to evening itinerary.", yes: 1, no: 0 },
   },
-  { id: 5, from: "priya", text: "Voted yes! That sounds amazing 😍", time: "10:16 AM" },
+  { id: 5, from: "priya", text: "Voted yes! That sounds amazing", time: "10:16 AM" },
   { id: 6, from: "rohan", text: "I'm in too. Let's do it!", time: "10:17 AM" },
 ];
 
@@ -31,10 +31,10 @@ const AVATARS: Record<string, { initials: string; color: string }> = {
 };
 
 const EXPENSES = [
-  { label: "✈️ Flights (Air India)",    payer: "Sneha", total: 35600, share: 17800 },
-  { label: "🏠 Airbnb Montmartre",      payer: "Sneha", total: 27300, share: 13650 },
-  { label: "🎟️ Louvre tickets",         payer: "Priya", total: 4800,  share: 2400,  owe: "Sneha owes Priya ₹2,400" },
-  { label: "🎭 Moulin Rouge (pending)", payer: "—",     total: 17000, share: 8500 },
+  { label: "Flights (Air India)",    payer: "Sneha", total: 35600, share: 17800 },
+  { label: "Airbnb Montmartre",      payer: "Sneha", total: 27300, share: 13650 },
+  { label: "Louvre tickets",         payer: "Priya", total: 4800,  share: 2400,  owe: "Sneha owes Priya ₹2,400" },
+  { label: "Moulin Rouge (pending)", payer: "—",     total: 17000, share: 8500 },
 ];
 
 export const CollabChatPage = () => {

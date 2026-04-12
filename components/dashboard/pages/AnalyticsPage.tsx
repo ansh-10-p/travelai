@@ -44,11 +44,11 @@ const REGIONS = [
 ];
 
 const TOP_CITIES = [
-  { city: "Paris 🗼",    visits: 2, rating: 4.9 },
-  { city: "Bali 🌴",     visits: 2, rating: 4.8 },
-  { city: "Dubai 🏙️",   visits: 3, rating: 4.2 },
-  { city: "Amsterdam 🌷", visits: 1, rating: 4.5 },
-  { city: "Kyoto ⛩️",   visits: 1, rating: 4.7 },
+  { city: "Paris",    visits: 2, rating: 4.9 },
+  { city: "Bali",     visits: 2, rating: 4.8 },
+  { city: "Dubai",   visits: 3, rating: 4.2 },
+  { city: "Amsterdam", visits: 1, rating: 4.5 },
+  { city: "Kyoto",   visits: 1, rating: 4.7 },
 ];
 
 const KEY_STATS = [
@@ -61,12 +61,12 @@ const KEY_STATS = [
 ];
 
 const INSIGHTS = [
-  { icon: "📈", title: "Spending up 24%",    desc: "vs last year — mainly due to Paris + Santorini budgets" },
-  { icon: "✈️", title: "Prefer non-stop",   desc: "82% of your flight bookings are non-stop" },
-  { icon: "🏨", title: "Airbnb favourite",  desc: "You book Airbnb 60% of the time for stays over 5 nights" },
-  { icon: "📅", title: "Weekend traveller", desc: "73% of trips start on a Friday or Saturday" },
-  { icon: "🌏", title: "Europe lover",      desc: "50% of your trips are to European destinations" },
-  { icon: "💰", title: "Smart spender",     desc: "You save avg ₹8,200 per trip vs initial budget estimates" },
+  { icon: "chart-line", title: "Spending up 24%",    desc: "vs last year — mainly due to Paris + Santorini budgets" },
+  { icon: "plane", title: "Prefer non-stop",   desc: "82% of your flight bookings are non-stop" },
+  { icon: "home", title: "Airbnb favourite",  desc: "You book Airbnb 60% of the time for stays over 5 nights" },
+  { icon: "calendar", title: "Weekend traveller", desc: "73% of trips start on a Friday or Saturday" },
+  { icon: "globe", title: "Europe lover",      desc: "50% of your trips are to European destinations" },
+  { icon: "wallet", title: "Smart spender",     desc: "You save avg ₹8,200 per trip vs initial budget estimates" },
 ];
 
 export const AnalyticsPage = () => {
@@ -85,7 +85,7 @@ export const AnalyticsPage = () => {
       {/* Header */}
       <motion.div {...stagger(0)} className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Analytics 📊</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Analytics</h1>
           <p className={`text-sm mt-0.5 ${dark ? "text-gray-500" : "text-gray-400"}`}>Your travel story, told in data</p>
         </div>
         <div className="flex gap-1.5">
@@ -158,7 +158,7 @@ export const AnalyticsPage = () => {
 
         {/* Spend by category */}
         <motion.div {...stagger(3)} className={`border ${card} rounded-3xl p-5 shadow-sm`}>
-          <h3 className={`font-bold text-sm mb-4 ${dark ? "text-white" : "text-gray-800"}`}>🥧 Spend by Category</h3>
+          <h3 className={`font-bold text-sm mb-4 ${dark ? "text-white" : "text-gray-800"}`}>Spend by Category</h3>
           <ResponsiveContainer width="100%" height={180}>
             <PieChart>
               <Pie data={CATEGORY_SPLIT} cx="50%" cy="50%" innerRadius={52} outerRadius={78} paddingAngle={3} dataKey="value">
@@ -179,7 +179,7 @@ export const AnalyticsPage = () => {
 
         {/* Trips by region */}
         <motion.div {...stagger(4)} className={`border ${card} rounded-3xl p-5 shadow-sm`}>
-          <h3 className={`font-bold text-sm mb-4 ${dark ? "text-white" : "text-gray-800"}`}>🌍 Spend by Region</h3>
+          <h3 className={`font-bold text-sm mb-4 ${dark ? "text-white" : "text-gray-800"}`}>Spend by Region</h3>
           <ResponsiveContainer width="100%" height={180}>
             <BarChart data={REGIONS} layout="vertical" barSize={14}>
               <CartesianGrid strokeDasharray="3 3" stroke={axis} horizontal={false} />

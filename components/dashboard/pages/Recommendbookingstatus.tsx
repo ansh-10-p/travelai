@@ -19,7 +19,7 @@ export const RecommendPage = () => {
     <div className="pb-10">
       <div className="mb-6">
         <h1 className={`text-2xl md:text-3xl font-bold mb-1 ${dark ? "text-white" : "text-gray-900"}`}>
-          AI Recommendation 🎯
+          AI Recommendation
         </h1>
         <p className={`text-sm ${dark ? "text-gray-400" : "text-gray-500"}`}>
           Your best Paris trip — explained clearly, no surprises

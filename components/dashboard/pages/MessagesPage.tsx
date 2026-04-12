@@ -12,38 +12,38 @@ const stagger = (i: number) => ({
 
 const CONVERSATIONS = [
   {
-    id: 1, name: "Airbnb Support", avatar: "🏠", badge: "Airbnb",
+    id: 1, name: "Airbnb Support", avatar: "home", badge: "Airbnb",
     last: "Your check-in code for Montmartre is ready!", time: "2m ago",
     unread: 2, online: true, type: "support",
     messages: [
       { from: "them", text: "Hi Sneha! Your booking for Montmartre Studio has been confirmed.", time: "10:02 AM" },
       { from: "them", text: "Your check-in is April 11. The host will share the access code 24h before.", time: "10:03 AM" },
       { from: "me",   text: "Thank you! Can I do an early check-in around 11 AM?", time: "10:15 AM" },
-      { from: "them", text: "We've passed your request to the host. They'll confirm within 24h 😊", time: "10:20 AM" },
+      { from: "them", text: "We've passed your request to the host. They'll confirm within 24h", time: "10:20 AM" },
       { from: "them", text: "Your check-in code for Montmartre is ready!", time: "Just now" },
     ],
   },
   {
-    id: 2, name: "Priya Sharma", avatar: "👩", badge: "Friend",
+    id: 2, name: "Priya Sharma", avatar: "person", badge: "Friend",
     last: "Are you free for Louvre on Day 2?", time: "1h ago",
     unread: 1, online: true, type: "friend",
     messages: [
-      { from: "them", text: "Sneha!! Paris trip confirmed 🎉🎉", time: "Yesterday" },
-      { from: "me",   text: "I know right!! So excited 😭✈️", time: "Yesterday" },
+      { from: "them", text: "Sneha!! Paris trip confirmed", time: "Yesterday" },
+      { from: "me",   text: "I know right!! So excited", time: "Yesterday" },
       { from: "them", text: "Should we book Louvre tickets in advance? I heard the queue is 3 hours", time: "9:30 AM" },
-      { from: "me",   text: "Yes! Already got skip-the-line ones from GetYourGuide 🙌", time: "9:45 AM" },
+      { from: "me",   text: "Yes! Already got skip-the-line ones from GetYourGuide", time: "9:45 AM" },
       { from: "them", text: "Are you free for Louvre on Day 2?", time: "1h ago" },
     ],
   },
   {
-    id: 3, name: "Air India", avatar: "✈️", badge: "Airline",
+    id: 3, name: "Air India", avatar: "plane", badge: "Airline",
     last: "Your flight AI 131 departs in 12 days.", time: "3h ago",
     unread: 0, online: false, type: "support",
     messages: [
       { from: "them", text: "Dear Sneha, your booking AI-8X92K4 is confirmed for BOM → CDG on Apr 11.", time: "Mar 28" },
       { from: "them", text: "Web check-in opens 48 hours before departure. Seat selection is complimentary.", time: "Mar 28" },
       { from: "me",   text: "Can I request a vegetarian meal?", time: "Mar 29" },
-      { from: "them", text: "Meal preference updated to AVML (Asian Vegetarian) ✅", time: "Mar 29" },
+      { from: "them", text: "Meal preference updated to AVML (Asian Vegetarian)", time: "Mar 29" },
       { from: "them", text: "Your flight AI 131 departs in 12 days.", time: "3h ago" },
     ],
   },

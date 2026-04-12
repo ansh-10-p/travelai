@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useApp, type PageId } from "./AppContext";
 
 // ── All 19 pages ─────────────────────────────────────────────────
+import { AuthPage }              from "../auth/AuthPage";
 import { DashboardHome }         from "../dashboard/pages/DashboardHome";
 // AI Planning flow
 import { SearchPage }            from "../dashboard/pages/Searchpage";
@@ -31,6 +32,7 @@ import { SettingsPage }          from "../dashboard/pages/SettingsPage";
 
 // ── Page registry ─────────────────────────────────────────────────
 const PAGES: Record<PageId, React.ComponentType> = {
+  auth:          AuthPage,
   home:          DashboardHome,
   search:        SearchPage,
   optimize:      AIOptimizePage,
@@ -60,6 +62,7 @@ const I = ({ d }: { d: string }) => (
 );
 
 const ICON: Record<string, string> = {
+  auth:          "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",
   home:          "M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10",
   search:        "M21 21l-6-6m2-5a7 7 0 1 1-14 0 7 7 0 0 1 14 0z",
   optimize:      "M13 2L3 14h9l-1 8 10-12h-9l1-8z",
@@ -128,11 +131,32 @@ const SIDEBAR_NAV: NavSection[] = [
 ];
 
 export const AppLayout = () => {
-  const { currentPage, setCurrentPage, isDarkMode, toggleDarkMode } = useApp();
+  const { currentPage, setCurrentPage, isDarkMode, toggleDarkMode, user, setUser } = useApp();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const logoutMenuRef = React.useRef<HTMLDivElement>(null);
 
   const bg       = isDarkMode ? "bg-gray-950" : "bg-gray-50";
   const surface  = isDarkMode ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100";
+  
+  // Close logout menu when clicking outside
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (logoutMenuRef.current && !logoutMenuRef.current.contains(event.target as Node)) {
+        setShowLogoutConfirm(false);
+      }
+    };
+
+    if (showLogoutConfirm) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [showLogoutConfirm]);
+
+  // If not authenticated, show auth page full screen
+  if (!user || currentPage === "auth") {
+    return <AuthPage />;
+  }
   
   const sideBtn  = (active: boolean) =>
     `w-full flex items-center ${isSidebarOpen ? "gap-3 px-3" : "justify-center px-0"} py-2.5 rounded-xl text-sm font-medium mb-1 transition-all ${
@@ -190,8 +214,18 @@ export const AppLayout = () => {
             className={`p-2 rounded-xl transition-colors text-lg ${
               isDarkMode ? "text-gray-400 hover:text-white hover:bg-gray-800" : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
             }`}
+            title={isDarkMode ? "Light mode" : "Dark mode"}
           >
-            {isDarkMode ? "☀️" : "🌙"}
+            {isDarkMode ? (
+              <svg width={20} height={20} viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="12" r="5" />
+                <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24" stroke="currentColor" strokeWidth="2"/>
+              </svg>
+            ) : (
+              <svg width={20} height={20} viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            )}
           </button>
 
           {/* Notifications */}
@@ -207,13 +241,43 @@ export const AppLayout = () => {
             <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-orange-500 rounded-full border-2 border-white dark:border-gray-900" />
           </button>
 
-          {/* Avatar Profile */}
-          <button
-            onClick={() => setCurrentPage("profile")}
-            className="w-9 h-9 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center text-white text-sm font-bold shadow-md flex-shrink-0 ml-1 hover:opacity-90 transition-opacity"
-          >
-            S
-          </button>
+          {/* Avatar Profile with Logout */}
+          <div className="relative" ref={logoutMenuRef}>
+            <button
+              onClick={() => setShowLogoutConfirm(!showLogoutConfirm)}
+              className="w-9 h-9 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center text-white text-sm font-bold shadow-md flex-shrink-0 ml-1 hover:opacity-90 transition-opacity"
+              title={user?.name}
+            >
+              {user?.name?.charAt(0).toUpperCase() || "U"}
+            </button>
+            
+            {/* Logout Dropdown */}
+            {showLogoutConfirm && (
+              <div className={`absolute right-0 top-full mt-2 rounded-xl border shadow-lg p-3 z-50 min-w-max ${surface}`}>
+                <div className={`text-sm mb-3 ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+                  <p className="font-semibold">{user?.name}</p>
+                  <p className="text-xs">{user?.email}</p>
+                </div>
+                <button
+                  onClick={() => setCurrentPage("profile")}
+                  className={`w-full text-left text-sm px-3 py-2 rounded-lg transition-colors mb-1 ${
+                    isDarkMode ? "hover:bg-gray-800" : "hover:bg-gray-100"
+                  }`}
+                >
+                  View Profile
+                </button>
+                <button
+                  onClick={() => {
+                    setUser(null);
+                    setShowLogoutConfirm(false);
+                  }}
+                  className="w-full text-left text-sm px-3 py-2 rounded-lg transition-colors text-red-500 hover:bg-red-500/10"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 

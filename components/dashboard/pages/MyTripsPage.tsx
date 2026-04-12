@@ -15,28 +15,28 @@ type TripStatus = "all" | "upcoming" | "planning" | "completed";
 const TRIPS = [
   {
     id: 1, city: "Paris", country: "France", dates: "Apr 11 – Apr 18, 2025",
-    daysLeft: 12, nights: 7, status: "upcoming", emoji: "🗼",
+    daysLeft: 12, nights: 7, status: "upcoming", emoji: "tower",
     image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=700&q=80",
     bg: "from-rose-900 to-orange-800", budget: "₹72,500", spent: "₹14,200",
     highlights: ["Eiffel Tower", "Louvre", "Montmartre"], progress: 43,
   },
   {
     id: 2, city: "Kyoto", country: "Japan", dates: "Jun 3 – Jun 10, 2025",
-    daysLeft: 65, nights: 7, status: "planning", emoji: "⛩️",
+    daysLeft: 65, nights: 7, status: "planning", emoji: "temple",
     image: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=700&q=80",
     bg: "from-pink-900 to-violet-800", budget: "₹90,000", spent: "₹0",
     highlights: ["Arashiyama", "Fushimi Inari", "Gion"], progress: 20,
   },
   {
     id: 3, city: "Santorini", country: "Greece", dates: "Aug 20 – Aug 28, 2025",
-    daysLeft: 143, nights: 8, status: "planning", emoji: "🏛️",
+    daysLeft: 143, nights: 8, status: "planning", emoji: "landmark",
     image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=700&q=80",
     bg: "from-sky-900 to-blue-800", budget: "₹1,10,000", spent: "₹0",
     highlights: ["Oia Sunset", "Caldera", "Wine Tasting"], progress: 10,
   },
   {
     id: 4, city: "Bali", country: "Indonesia", dates: "Nov 5 – Nov 14, 2024",
-    daysLeft: 0, nights: 9, status: "completed", emoji: "🌴",
+    daysLeft: 0, nights: 9, status: "completed", emoji: "palm",
     image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=700&q=80",
     bg: "from-green-900 to-teal-800", budget: "₹65,000", spent: "₹63,200",
     highlights: ["Ubud Rice Fields", "Uluwatu", "Seminyak"], progress: 100,
@@ -44,7 +44,7 @@ const TRIPS = [
   },
   {
     id: 5, city: "Amsterdam", country: "Netherlands", dates: "Sep 12 – Sep 18, 2024",
-    daysLeft: 0, nights: 6, status: "completed", emoji: "🌷",
+    daysLeft: 0, nights: 6, status: "completed", emoji: "flower",
     image: "https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=700&q=80",
     bg: "from-indigo-900 to-blue-800", budget: "₹80,000", spent: "₹78,500",
     highlights: ["Canal Cruise", "Rijksmuseum", "Vondelpark"], progress: 100,
@@ -52,7 +52,7 @@ const TRIPS = [
   },
   {
     id: 6, city: "Dubai", country: "UAE", dates: "Jul 4 – Jul 8, 2024",
-    daysLeft: 0, nights: 4, status: "completed", emoji: "🏙️",
+    daysLeft: 0, nights: 4, status: "completed", emoji: "cityscape",
     image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=700&q=80",
     bg: "from-amber-900 to-yellow-800", budget: "₹55,000", spent: "₹54,100",
     highlights: ["Burj Khalifa", "Desert Safari", "Marina"], progress: 100,

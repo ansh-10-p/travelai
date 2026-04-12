@@ -23,29 +23,29 @@ const PLANS: Record<PlanKey, {
   food: number; activities: number; color: string; why: string;
 }> = {
   smart: {
-    label: "Smart Plan", emoji: "⚡", total: 72500, savings: 7500,
+    label: "Smart Plan", emoji: "lightning", total: 72500, savings: 7500,
     food: 11900, activities: 8000,
     color: "from-orange-500 to-pink-500",
     why: "Air India non-stop saves 45 min vs IndiGo and includes baggage. Montmartre Airbnb is rated 4.7★ with free cancellation — unbeatable value. This plan keeps ₹7,500 in your pocket.",
   },
   budget: {
-    label: "Budget Plan", emoji: "💰", total: 58400, savings: 21600,
+    label: "Budget Plan", emoji: "wallet", total: 58400, savings: 21600,
     food: 9000, activities: 6000,
     color: "from-emerald-500 to-teal-500",
     why: "Cheapest available options across flights, hotels, food and activities. Saves ₹21,600 — ideal if you're flexible on comfort and want maximum budget buffer.",
   },
   premium: {
-    label: "Premium Plan", emoji: "✨", total: 88900, savings: -8900,
+    label: "Premium Plan", emoji: "sparkle", total: 88900, savings: -8900,
     food: 18000, activities: 14000,
     color: "from-violet-500 to-fuchsia-500",
     why: "Emirates comfort class with 4.8★ service + boutique hotel in Le Marais — the most central arrondissement. Over budget by ₹8,900 but delivers a 5-star Paris experience.",
   },
 };
 const AI_TIPS = [
-  { icon: "📅", tip: "Shift dates to Apr 14–21",        save: "₹5,000", reason: "Midweek demand is 35% lower" },
-  { icon: "🍽️", tip: "Dine near Bastille, not Marais",  save: "₹2,200", reason: "Same cuisine, 40% cheaper prices" },
-  { icon: "🎟️", tip: "Buy a 5-day Paris Museum Pass",   save: "₹1,800", reason: "Louvre + Orsay + Versailles bundled" },
-  { icon: "🚇", tip: "Get a weekly Navigo metro pass",   save: "₹600",   reason: "Unlimited metro for 7 days" },
+  { icon: "calendar", tip: "Shift dates to Apr 14–21",        save: "₹5,000", reason: "Midweek demand is 35% lower" },
+  { icon: "utensils", tip: "Dine near Bastille, not Marais",  save: "₹2,200", reason: "Same cuisine, 40% cheaper prices" },
+  { icon: "ticket", tip: "Buy a 5-day Paris Museum Pass",   save: "₹1,800", reason: "Louvre + Orsay + Versailles bundled" },
+  { icon: "transit", tip: "Get a weekly Navigo metro pass",   save: "₹600",   reason: "Unlimited metro for 7 days" },
 ];
 const BUDGET_TOTAL = 80000;
 
@@ -81,7 +81,7 @@ export const RecommendPage = () => {
 
       {/* ── Page header ── */}
       <motion.div {...s(0)} className="mb-6">
-        <h1 className="text-2xl font-bold tracking-tight">AI Recommendation 🎯</h1>
+        <h1 className="text-2xl font-bold tracking-tight">AI Recommendation</h1>
         <p className={`text-sm mt-0.5 ${dark ? "text-gray-400" : "text-gray-500"}`}>
           Your best Paris trip — explained clearly, no surprises
         </p>

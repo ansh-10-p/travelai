@@ -42,10 +42,10 @@ export const Badge = ({ children, variant = "default" }: { children: React.React
   const v = {
     default: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400",
     green:   "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400",
-    amber:   "bg-amber-100   text-amber-700   dark:bg-amber-900/40   dark:text-amber-400",
-    red:     "bg-red-100     text-red-600     dark:bg-red-900/40     dark:text-red-400",
-    pink:    "bg-pink-100    text-pink-700    dark:bg-pink-900/40    dark:text-pink-400",
-    blue:    "bg-blue-100    text-blue-700    dark:bg-blue-900/40    dark:text-blue-400",
+    amber:   "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400",
+    red:     "bg-red-100 text-red-600 dark:bg-red-900/40 dark:text-red-400",
+    pink:    "bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-400",
+    blue:    "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400",
   }[variant];
   return <span className={`inline-flex items-center text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${v}`}>{children}</span>;
 };
@@ -120,7 +120,8 @@ export const Divider = ({ className = "" }: { className?: string }) => (
 export const StatTile = ({ label, value, color = "from-orange-400 to-pink-500" }: { label: string; value: string; color?: string }) => (
   <div className="bg-gray-50 dark:bg-gray-800/60 rounded-xl p-4">
     <div className={`text-xl font-black bg-gradient-to-r ${color} bg-clip-text text-transparent`}>{value}</div>
-    <div className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">{label}</div>
+    {/* FIXED CONTRAST HERE: Swapped text-gray-400 for text-gray-600 dark:text-gray-400 */}
+    <div className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">{label}</div>
   </div>
 );
 
@@ -147,18 +148,18 @@ export const FLIGHTS = [
 
 export const HOTELS = [
   { id: 1, name: "Montmartre Studio",  provider: "Airbnb",      logo: "Ab", priceNight: 3900, priceTotal: 27300, rating: 4.7, tag: "best value", location: "Paris 18th", amenities: ["Free cancel", "Self check-in", "Studio"], color: "bg-rose-100 text-rose-700" },
-  { id: 2, name: "Ibis Paris Centre",  provider: "Booking.com",  logo: "Bk", priceNight: 3200, priceTotal: 22400, rating: 4.0, tag: "cheapest",   location: "Paris 10th", amenities: ["Breakfast opt.", "24h reception"], color: "bg-blue-100 text-blue-700" },
-  { id: 3, name: "Le Marais Boutique", provider: "Hotels.com",   logo: "Ht", priceNight: 5800, priceTotal: 40600, rating: 4.6, tag: "luxury",     location: "Paris 4th",  amenities: ["Rooftop terrace", "Concierge", "Bar"], color: "bg-violet-100 text-violet-700" },
+  { id: 2, name: "Ibis Paris Centre",  provider: "Booking.com", logo: "Bk", priceNight: 3200, priceTotal: 22400, rating: 4.0, tag: "cheapest",   location: "Paris 10th", amenities: ["Breakfast opt.", "24h reception"], color: "bg-blue-100 text-blue-700" },
+  { id: 3, name: "Le Marais Boutique", provider: "Hotels.com",  logo: "Ht", priceNight: 5800, priceTotal: 40600, rating: 4.6, tag: "luxury",     location: "Paris 4th",  amenities: ["Rooftop terrace", "Concierge", "Bar"], color: "bg-violet-100 text-violet-700" },
 ];
 
 export const PLANS = {
-  smart:   { label: "Smart Plan",   emoji: "⚡", total: 72500, savings: 7500,  flight: FLIGHTS[0], hotel: HOTELS[0],  food: 11900, why: "Non-stop Air India + 4.7★ Airbnb = max comfort within budget. Free cancellation on both.", color: "from-orange-500 to-pink-500" },
-  budget:  { label: "Budget Plan",  emoji: "💰", total: 58400, savings: 21600, flight: FLIGHTS[1], hotel: HOTELS[1],  food:  9000, why: "Cheapest flight + cheapest hotel. Saves ₹21,600 — ideal if flexibility matters more than comfort.", color: "from-emerald-500 to-teal-500" },
+  smart:   { label: "Smart Plan",  emoji: "⚡", total: 72500, savings: 7500,  flight: FLIGHTS[0], hotel: HOTELS[0],  food: 11900, why: "Non-stop Air India + 4.7★ Airbnb = max comfort within budget. Free cancellation on both.", color: "from-orange-500 to-pink-500" },
+  budget:  { label: "Budget Plan", emoji: "💰", total: 58400, savings: 21600, flight: FLIGHTS[1], hotel: HOTELS[1],  food:  9000, why: "Cheapest flight + cheapest hotel. Saves ₹21,600 — ideal if flexibility matters more than comfort.", color: "from-emerald-500 to-teal-500" },
   premium: { label: "Premium Plan", emoji: "✨", total: 88900, savings: -8900, flight: FLIGHTS[2], hotel: HOTELS[2],  food: 18000, why: "Emirates business + Le Marais boutique. ₹8,900 over budget but exceptional experience.", color: "from-violet-500 to-fuchsia-500" },
 };
 
 export const AI_TIPS = [
-  { icon: "📅", tip: "Shift dates to Apr 14–21",       save: "₹5,000", reason: "Midweek flights are cheaper" },
+  { icon: "📅", tip: "Shift dates to Apr 14–21",      save: "₹5,000", reason: "Midweek flights are cheaper" },
   { icon: "🍽️", tip: "Dine near Bastille, not Marais", save: "₹2,200", reason: "Same food, 40% lower prices" },
   { icon: "🎟️", tip: "Buy a Museum Pass (5 days)",     save: "₹1,800", reason: "Louvre + Orsay + Versailles bundled" },
   { icon: "🚇", tip: "Get a weekly Navigo pass",        save: "₹600",   reason: "Unlimited metro for 7 days" },

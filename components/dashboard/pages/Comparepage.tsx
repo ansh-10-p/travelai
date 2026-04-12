@@ -40,7 +40,7 @@ export const ComparePage = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
           <h1 className={`text-2xl md:text-3xl font-bold mb-1 ${dark ? "text-white" : "text-gray-900"}`}>
-            Compare Options ⚖️
+            Compare Options
           </h1>
           <p className={`text-sm ${dark ? "text-gray-400" : "text-gray-500"}`}>
             All flights and hotels side-by-side with full pricing
@@ -53,8 +53,8 @@ export const ComparePage = () => {
 
       {/* Tab + sort row */}
       <motion.div {...stagger(0)} className="flex items-center gap-2 mb-5 flex-wrap">
-        <Pill label="✈️ Flights" active={tab === "flights"} onClick={() => setTab("flights")} />
-        <Pill label="🏨 Hotels"  active={tab === "hotels"}  onClick={() => setTab("hotels")}  />
+        <Pill label="Flights" active={tab === "flights"} onClick={() => setTab("flights")} />
+        <Pill label="Hotels"  active={tab === "hotels"}  onClick={() => setTab("hotels")}  />
         <div className="flex-1" />
         <Pill label="Cheapest"   active={sort === "cheapest"} onClick={() => setSort("cheapest")} />
         <Pill label="Fastest"    active={sort === "fastest"}  onClick={() => setSort("fastest")}  />

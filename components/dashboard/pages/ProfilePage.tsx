@@ -6,12 +6,12 @@ import { useApp } from '../../travel/AppContext';
 import { BtnPrimary, stagger, Toggle, Divider } from "../../ui/ui";
 
 const BADGES = [
-  { icon: "🌍", label: "Globe Trotter",     desc: "18 countries" },
-  { icon: "✈️", label: "Frequent Flyer",    desc: "12 trips" },
-  { icon: "⭐", label: "Top Reviewer",      desc: "25 reviews" },
-  { icon: "💰", label: "Smart Spender",     desc: "₹38k saved" },
-  { icon: "🏨", label: "Connoisseur",       desc: "47 nights" },
-  { icon: "🗺️", label: "Explorer",         desc: "4 continents" },
+  { icon: "globe", label: "Globe Trotter",     desc: "18 countries" },
+  { icon: "plane", label: "Frequent Flyer",    desc: "12 trips" },
+  { icon: "star", label: "Top Reviewer",      desc: "25 reviews" },
+  { icon: "wallet", label: "Smart Spender",     desc: "₹38k saved" },
+  { icon: "home", label: "Connoisseur",       desc: "47 nights" },
+  { icon: "compass", label: "Explorer",         desc: "4 continents" },
 ];
 
 const TRAVEL_PREFS = [
@@ -29,7 +29,7 @@ export const ProfilePage = () => {
   const dark = isDarkMode;
   const [editing, setEditing] = useState(false);
   const [name, setName]   = useState("Sneha Patel");
-  const [bio, setBio]     = useState("Travel addict 🌍 · Coffee lover ☕ · Always chasing sunsets 🌅");
+  const [bio, setBio]     = useState("Travel addict · Coffee lover · Always chasing sunsets");
   const [budgetStyle, setBudgetStyle] = useState("smart");
   const [activeTags, setActiveTags]   = useState(["Culture", "Food", "Art", "Architecture"]);
   const [settings, setSettings] = useState({

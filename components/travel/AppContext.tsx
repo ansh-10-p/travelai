@@ -15,8 +15,18 @@
 
 import React, { createContext, useContext, useState } from "react";
 
+// ─── User type ────────────────────────────────────────────────────
+export interface User {
+  name: string;
+  email: string;
+  provider: "google" | "facebook" | "email";
+  avatar?: string;
+}
+
 // ─── All page IDs in the app ───────────────────────────────────────
 export type PageId =
+  // Auth
+  | "auth"
   // Dashboard
   | "home"
   // AI Planning Flow
@@ -32,6 +42,11 @@ export type PageId =
 
 // ─── Context shape ────────────────────────────────────────────────
 interface AppContextType {
+  // Auth
+  user: User | null;
+  setUser: (user: User | null) => void;
+  isAuthenticated: boolean;
+
   // Navigation
   currentPage: PageId;
   setCurrentPage: (page: PageId) => void;
@@ -68,7 +83,24 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 // ─── Provider ─────────────────────────────────────────────────────
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
-  const [currentPage, setCurrentPage] = useState<PageId>("home");
+  // Check for existing user session
+  const [user, setUserState] = useState<User | null>(null);
+  const [hydrated, setHydrated] = useState(false);
+
+  React.useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      try {
+        setUserState(JSON.parse(savedUser));
+        setCurrentPageState("home");
+      } catch (e) {
+        console.error("Failed to parse user from localStorage:", e);
+      }
+    }
+    setHydrated(true);
+  }, []);
+
+  const [currentPageState, setCurrentPageState] = useState<PageId>("auth");
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [selectedFlight, setSelectedFlight] = useState(1);
   const [selectedHotel, setSelectedHotel] = useState(1);
@@ -86,16 +118,30 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const setSearchParams = (partial: Partial<AppContextType["searchParams"]>) =>
     setSearchParamsState(prev => ({ ...prev, ...partial }));
 
+  const setUser = (newUser: User | null) => {
+    setUserState(newUser);
+    if (newUser) {
+      localStorage.setItem("user", JSON.stringify(newUser));
+      setCurrentPageState("home");
+    } else {
+      localStorage.removeItem("user");
+      setCurrentPageState("auth");
+    }
+  };
+
+  const currentPage = user ? currentPageState : "auth";
+
   return (
     <AppContext.Provider value={{
-      currentPage, setCurrentPage,
+      user, setUser, isAuthenticated: !!user,
+      currentPage, setCurrentPage: setCurrentPageState,
       isDarkMode, toggleDarkMode: () => setIsDarkMode(d => !d),
       searchParams, setSearchParams,
       selectedFlight, setSelectedFlight,
       selectedHotel, setSelectedHotel,
       selectedPlan, setSelectedPlan,
     }}>
-      {children}
+      {hydrated ? children : null}
     </AppContext.Provider>
   );
 };
